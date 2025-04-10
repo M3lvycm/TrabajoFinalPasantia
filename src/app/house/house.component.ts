@@ -76,64 +76,47 @@ constructor(private fb: FormBuilder){
     this.show = false
   }
 
-
-
-
   delete(index?: number) {
-      if (index !== undefined) {
-        // Remove specific card with animation
-        Swal.fire({
-          title: '¿Estás seguro?',
-          text: "Esta acción no se puede revertir",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#591b95',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Sí, eliminar',
-          cancelButtonText: 'Cancelar'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // Get the element directly by class name
-            const cardElement = document.querySelector(`.card-item-${index}`);
+      // Mostrar diálogo de confirmación
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Esta acción no se puede revertir",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#591b95',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Si el usuario confirma, eliminar la propiedad
 
-            if (cardElement) {
-              // Add the animation class
-              cardElement.classList.add('card-delete-animation');
+            // Eliminar una propiedad específica
 
-              // Wait for animation to complete before removing from array
-              setTimeout(() => {
-                this.house.splice(index, 1);
-                Swal.fire(
-                  '¡Eliminado!',
-                  'La propiedad ha sido eliminada.',
-                  'success'
-                );
-              }, 500); // Match this with your animation duration
-            } else {
-              console.error(`Element with class .card-item-${index} not found`);
-              // If element not found, still remove the item
-              this.house.splice(index, 1);
-            }
-          }
-        });
-      } else {
-        // Remove last card with animation
-        const lastIndex = this.house.length - 1;
-        const cardElement = document.querySelector(`.card-item-${lastIndex}`);
-
-        if (cardElement) {
-          cardElement.classList.add('card-delete-animation');
-
-          setTimeout(() => {
+            // Eliminar la última propiedad
             this.house.pop();
-          }, 500);
-        } else {
-          console.error(`Element with class .card-item-${lastIndex} not found`);
-          // If element not found, still remove the item
-          this.house.pop();
+               // Mostrar mensaje de éxito
+          Swal.fire(
+            '¡Eliminado!',
+            'La propiedad ha sido eliminada.',
+            'success'
+          );
+          } else{
+            Swal.fire(
+              'Cancelado',
+              'La propiedad no ha sido eliminada.',
+              'error'
+            );
+          }
+
+
+
+
         }
-      }
+      );
     }
+
+
+
+
 }
-
-
