@@ -33,6 +33,8 @@ form {
   width: 100%;
   max-width: 450px;
   margin: 0 auto;
+  animation: popIn 0.5s ease-out;
+
 }
 
 .form-label {
@@ -41,6 +43,8 @@ form {
   margin-bottom: 10px;
   font-size: 1.1rem;
   align-self: flex-start;
+  animation: popIn 0.5s ease-out;
+
   letter-spacing: 0.5px;
 }
 
@@ -52,12 +56,16 @@ form {
   width: 100%;
   font-size: 1rem;
   background-color: #f8f9fa;
+  animation: popIn 0.5s ease-out;
+
 }
 
 .form-control:focus {
   border-color: #8a4baf;
   box-shadow: 0 0 0 0.2rem rgba(138, 75, 175, 0.25);
   background-color: #ffffff;
+  animation: popIn 0.5s ease-out;
+
 }
 
 .btn-outline-primary {
@@ -72,12 +80,16 @@ form {
   letter-spacing: 1px;
   width: 100%;
   margin-top: 20px;
+  animation: popIn 0.5s ease-out;
+
 }
 
 .btn-outline-primary:hover {
   background-color: #4a1580;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(89, 27, 149, 0.4);
+  animation: popIn 0.5s ease-out;
+
 }
 
 h2 {
@@ -88,6 +100,8 @@ h2 {
   text-align: center;
   margin-bottom: 30px;
   text-shadow: 1px 1px 2px rgba(89, 27, 149, 0.1);
+  animation: popIn 0.5s ease-out;
+
 }
 
 a {
@@ -96,6 +110,8 @@ a {
   transition: all 0.3s ease;
   font-weight: 600;
   font-size: 1rem;
+  animation: popIn 0.5s ease-out;
+
 }
 
 a:hover {
@@ -114,7 +130,6 @@ a:hover {
 /* Gradiente para el fondo del contenedor */
 /* Mejorando el centrado del contenedor principal */
 .container {
-  background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
 
   align-items: center;
   min-height: 100vh;
