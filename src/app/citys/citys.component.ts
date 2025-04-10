@@ -66,6 +66,9 @@ export class CitysComponent {
   close(){
     this.show = false
   }
+  
+ 
+
 
   delete(index?: number) {
       if (index !== undefined) {

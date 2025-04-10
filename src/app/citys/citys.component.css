@@ -7,8 +7,16 @@
   height: 100px; /* Aumentado para hacerlas aún más largas */
   max-width: 1200px; /* Aumentado para hacerlas más anchas */
   margin: 0 auto 30px; /* Aumentado el margen inferior para mejor separación */
+  
 }
 
+.inView{
+  opacity: 0%;
+}
+
+.card:hover .inView{
+  opacity: 100%;
+}
 .card:hover {
   transform: translateY(-20px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
