@@ -1,0 +1,227 @@
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 50px;
+  overflow: hidden;
+  position: relative;
+  height: 100px; /* Aumentado para hacerlas aún más largas */
+  max-width: 1200px; /* Aumentado para hacerlas más anchas */
+  margin: 0 auto 30px; /* Aumentado el margen inferior para mejor separación */
+  
+}
+
+.inView{
+  opacity: 0%;
+}
+
+.card:hover .inView{
+  opacity: 100%;
+}
+.card:hover {
+  transform: translateY(-20px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.card-body {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 5rem; /* Aumentado el padding para mejor visualización del contenido */
+}
+
+.card-title {
+  font-size: 2.5rem; /* Aumentado el tamaño del título */
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card-text {
+  font-size: 1.0rem; /* Aumentado el tamaño del texto */
+  margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  margin: auto;
+}
+
+.add-btn {
+  color: #591b95;
+  border-color: #591b95;
+  border-radius: 25px;
+  padding: 10px 25px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+
+.add-btn-danger {
+  color: #ff0000;
+  border-color: #ff0303;
+  border-radius: 25px;
+  padding: 10px 25px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  margin-left: 10px ;
+}
+
+.add-btn-danger:hover {
+  background-color: #e01616f8;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(89, 27, 149, 0.3);
+}
+
+.add-btn:hover {
+  background-color: #591b95;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(89, 27, 149, 0.3);
+}
+
+.alingButton{
+  margin-left: 12px;
+}
+
+/* Modal overlay styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-title {
+  color: #591b95;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #591b95;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e9e9e9;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #591b95;
+  box-shadow: 0 0 0 0.2rem rgba(89, 27, 149, 0.25);
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-cancel {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #e9ecef;
+}
+
+.btn-submit {
+  background-color: #591b95;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #4a1580;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(89, 27, 149, 0.3);
+}
+
+
+@keyframes deleteAnimation {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.9) rotate(5deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(15deg);
+  }
+}
+
+.card-delete-animation {
+  animation: deleteAnimation 0.5s ease-in forwards;
+}

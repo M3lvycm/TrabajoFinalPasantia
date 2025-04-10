@@ -1,4 +1,29 @@
+.tableau {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid white;
+}
 
+.bg {
+  background-image: url('/assets/images/real-estate-bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  border-radius: 25px 0 0 25px;
+  box-shadow: inset 0 0 15px rgba(89, 27, 149, 0.3);
+  height: 100%;
+  position: relative;
+}
+
+.bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(89, 27, 149, 0.7) 0%, rgba(138, 75, 175, 0.4) 100%);
+  border-radius: 25px 0 0 25px;
+}
 
 @keyframes popIn {
   0% {
@@ -112,73 +137,13 @@ a:hover {
 }
 
 /* Gradiente para el fondo del contenedor */
-/* Mejorando el centrado del contenedor principal */
 .container {
   background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
-
+  display: flex;
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 40px 20px;
-  box-sizing: border-box;
-}
-
-.pop-animation {
-  animation: popIn 0.5s ease-out;
-  background-color: #ffffff;
-  border-radius: 25px;
-  box-shadow: 0 15px 35px rgba(89, 27, 149, 0.2);
-  overflow: hidden;
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: stretch;
-}
-
-/* Asegurando que las columnas tengan la altura correcta */
-.row {
-  width: 100%;
-  margin: 0;
-}
-
-.col {
- justify-content: center;
-  align-items: center;
-  display: flex;
-  padding: 40px;;
-  flex-direction: column;
-}
-
-/* Centrando el formulario */
-form {
-  padding: 20px 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-/* Ajustando el título para mejor centrado */
-h2 {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-/* Media queries para mejor responsividad */
-@media (max-width: 992px) {
-  .container {
-    padding: 20px 10px;
-  }
-
-  .col {
-    padding: 20px;
-  }
-
-  form {
-    padding: 15px;
-  }
 }
 
 /* Efecto hover para los inputs */
@@ -197,13 +162,13 @@ h2 {
   margin-top: 15px;
 }
 
-.my-3 {
-  margin: 20px 0;
+.mb-3 {
+  margin-bottom: 1.5rem !important;
   text-align: center;
   width: 100%;
 }
 
-.register-link {
+.login-link {
   color: #8a4baf;
   font-weight: 600;
   transition: all 0.3s ease;
@@ -212,7 +177,7 @@ h2 {
   border-radius: 8px;
 }
 
-.register-link:hover {
+.login-link:hover {
   color: #591b95;
   background-color: rgba(138, 75, 175, 0.1);
   text-decoration: none;
@@ -232,4 +197,30 @@ h2 {
     font-size: 2rem;
     margin-bottom: 20px;
   }
+}
+
+/* Mantener los estilos de la tabla por si se necesitan */
+.tableau {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid white;
+}
+
+.tableau thead {
+  background-color: #591b95;
+  color: white;
+}
+
+.tableau th, .tableau td {
+  border: none;
+  padding: 10px;
+  text-align: left;
+}
+
+.tableau tbody tr {
+  background-color: #f8f9fa;
+}
+
+.tableau tbody tr:nth-child(even) {
+  background-color: #e9ecef;
 }

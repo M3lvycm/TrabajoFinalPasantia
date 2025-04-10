@@ -1,0 +1,42 @@
+<div class="container mt-4 mb-5">
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col" *ngFor="let card of house">
+      <div class="property-card">
+        <div class="property-card-inner">
+          <div class="property-image">
+            <img [src]="card.img" [alt]="card.title">
+          </div>
+          
+          <div class="property-content">
+            <h4 class="property-title">{{ card.title }}</h4>
+            
+            <div class="property-details">
+              <div class="detail-item">
+                <i class="fas fa-bed"></i>
+                <span>3 Habitaciones</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-ruler-combined"></i>
+                <span>120 m²</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-car"></i>
+                <span>2 Garajes</span>
+              </div>
+            </div>
+            
+            <p class="property-description">{{ card.text }}</p>
+            
+            <a class="btn btn-primary visit-btn">Detalles</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
