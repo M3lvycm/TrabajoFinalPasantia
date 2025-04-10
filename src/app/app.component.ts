@@ -5,12 +5,12 @@ import { CommonModule } from '@angular/common';
 import { RegisterComponent } from "./register/register.component";
 import { CitysComponent } from "./citys/citys.component";
 import { HouseComponent } from "./house/house.component";
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './navbar/navbar.component';;
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CitysComponent, HouseComponent, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, CitysComponent,HouseComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

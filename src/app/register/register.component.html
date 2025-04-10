@@ -1,12 +1,12 @@
 <div class="container w-75 min-vh-100 d-flex align-items-center justify-content-center py-5">
-  <div class="row align-items-stretch w-100 pop-animation">
+  <div class="row align-items-stretch w-100 ">
    
 
     <div class="col">
       <div class="text-end ">
           <!-- <img src="image.png" width="48px" alt="image"> -->
         </div>
-      <h2 class="fw-bold text-center py-5">Registrate</h2>
+      <h2 class="fw-bold text-center pb-2 py-5">Registrate</h2>
 
       <form [formGroup]="formRegister" >
         <div class="mb-4">
@@ -37,7 +37,7 @@
 
 
         <div class=" mb-3">
-          <a  class="text-decoration-none">¿Ya tienes una cuenta? Inicia sesión</a>
+        <span> Ya tienes cuenta <a  [routerLink]="['/login']">Inicia secion </a> </span> 
                 </div>
 
         <div class="d-grid">
