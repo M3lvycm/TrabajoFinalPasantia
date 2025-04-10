@@ -1,34 +1,39 @@
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 .header {
-    position: fixed;
-    width: 100%;
-    padding: 1rem 0;
-    /* border-bottom: 1px solid black; */
-    z-index: 999;}
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  padding: 1rem 0;
+  /* border-bottom: 1px solid black; */
+  z-index: 999;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
 
 .nav {
-    display: flex;
-    justify-content: space-around;
-    gap: 15%;
+  display: flex;
+  justify-content: space-around;
+  gap: 15%;
 }
 
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Make sure your existing styles are preserved */
+.logo {
+  background-image: url(../../assets/img/Logo.png);
+  width: 180px;
+  height: 50px;
+}
+
+
 .nav {
   display: flex;
   justify-content: space-between;
@@ -39,30 +44,52 @@
 }
 
 .nav-list {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-item {
+  padding: 10px 30px;
+}
+
+.nav-item:not(.log-in-btn):hover {
+  transform: translateY(-2px);
+  transition: 0.5s ease;
+}
+
+.nav-item:not(.log-in-btn):hover > a {
+  color: #591b95;
 }
 
 .nav-item a {
-    color: #110229;
-    text-decoration: none;
-    font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.header.scrolled .nav-item a {
-  color: #591b95;
-}
-
-.nav-item a:hover {
-  color: #591b95;
-}
-
-a{
+  color: #110229;
+  text-decoration: none;
+  font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
   cursor: pointer;
+  transition: 0.3s ease;
 }
+
+.log-in-btn {
+  border: 2px solid #110229;
+  border-radius: 15px;
+  transition: 0.5s ease;
+}
+
+.log-in-btn:hover {
+  background-color: #591b95;
+}
+
+.log-in-btn > a {
+  color: #110229;
+}
+
+.log-in-btn:hover > a {
+  color: white;
+}
+
