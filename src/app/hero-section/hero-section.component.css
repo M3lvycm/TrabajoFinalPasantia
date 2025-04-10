@@ -2,11 +2,12 @@
 
 .hero_container{
 
-    padding: 70px;
+    padding: 10%;
 
     width: 90vw;
     height: 85vh;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    border-radius: 40px;
 
     background-image: url(../../assets/img/BannerImage.png);
     background-size: cover;
@@ -18,11 +19,11 @@
     width: 45%;
     height: auto;
 
-    border: 1px solid black;
+    /* border: 1px solid black; */
 
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 60px;
 }
 
 .main_text, .sub_text{
@@ -31,12 +32,13 @@
 
 .main_text{
     color: #110229;
-    font-size: 40px;
+    font-size: 60px;
     font-weight: bolder;
 }
 
 .sub_text{
     color: #585981;
-    font-size: auto;
+    font-size: 25px;
     font-weight: 500;
+    line-height: 40px;
 }
