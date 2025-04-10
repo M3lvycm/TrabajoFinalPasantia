@@ -8,11 +8,12 @@ import { HouseComponent } from "./house/house.component";
 import { NavbarComponent } from './navbar/navbar.component';
 import { Section4Component } from './section-4/section-4.component';
 import { HeroSectionComponent } from "./hero-section/hero-section.component";
+import { FooterComponent } from "./footer/footer.component";
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, CitysComponent, HouseComponent, Section4Component, HeroSectionComponent],
+  imports: [RouterOutlet, NavbarComponent, CitysComponent, HouseComponent, Section4Component, HeroSectionComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
