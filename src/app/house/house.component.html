@@ -1,32 +1,43 @@
 <div class="container mt-4 mb-5">
+
+
+<div class="container mt-4 mb-5">
+
+  <div class=" alingButton my-4 ">
+    <button class="btn btn-outline-primary add-btn mb-5" (click)="mostrarFormulario()">
+      <i class="fas fa-plus-circle me-2"></i>Agregar propiedad
+    </button>
+    <button class="btn btn-outline-danger add-btn-danger inView mb-5" (click)="delete()">Eliminar</button>
+
+
   <div class="row row-cols-1 row-cols-md-2 g-4">
-    <div class="col" *ngFor="let card of house">
-      <div class="property-card">
+    <div class="col" *ngFor="let house of house; let i = index">
+      <div class="property-card card-item-{{i}}">
         <div class="property-card-inner">
           <div class="property-image">
-            <img [src]="card.img" [alt]="card.title">
+            <img [src]="house.img" [alt]="house.title">
           </div>
-          
+
           <div class="property-content">
-            <h4 class="property-title">{{ card.title }}</h4>
-            
+            <h4 class="property-title">{{ house.title }}</h4>
+
             <div class="property-details">
               <div class="detail-item">
                 <i class="fas fa-bed"></i>
-                <span>{{card.nH}} Habitaciones</span>
+                <span>{{house.nH}} Habitaciones</span>
               </div>
               <div class="detail-item">
                 <i class="fas fa-ruler-combined"></i>
-                <span>120 m²</span>
+                <span>{{house.mC}} m²</span>
               </div>
               <div class="detail-item">
                 <i class="fas fa-car"></i>
-                <span>2 Garajes</span>
+                <span>{{house.nG}} Garajes</span>
               </div>
             </div>
-            
-            <p class="property-description">{{ card.text }}</p>
-            
+
+            <p class="property-description">{{ house.text }}</p>
+
             <a class="btn btn-primary visit-btn">Detalles</a>
           </div>
         </div>
@@ -35,6 +46,56 @@
   </div>
 </div>
 
+
+
+<div class="modal-overlay" *ngIf="show == true">
+  <div class="modal-content">
+    <h3 class="form-title">Agregar Nueva Propiedad</h3>
+    <div class="form-scroll-container">
+      <form [formGroup]="houseForm">
+        <div class="form-group">
+          <label for="img">URL de la imagen</label>
+          <input id="img" class="form-control" formControlName="img" placeholder="Ingrese la URL de la imagen">
+        </div>
+
+        <div class="form-group">
+          <label for="title">Título</label>
+          <input id="title" class="form-control" formControlName="title" placeholder="Ingrese el título">
+        </div>
+
+        <div class="form-group">
+          <label for="title">Numero de habitaciones</label>
+          <input id="title" class="form-control" formControlName="nH" placeholder="Ingrese el título">
+        </div>
+
+        <div class="form-group">
+          <label for="title">Numero de garages</label>
+          <input id="title" class="form-control" formControlName="nG" placeholder="Ingrese el título">
+        </div>
+
+        <div class="form-group">
+          <label for="title">Metros cubicos</label>
+          <input id="title" class="form-control" formControlName="mC" placeholder="Ingrese el título">
+        </div>
+
+        <div class="form-group">
+          <label for="text">Descripción</label>
+          <textarea id="text" class="form-control" formControlName="text" rows="3" placeholder="Ingrese la descripción"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="city">Ciudad</label>
+          <input id="city" class="form-control" formControlName="city" placeholder="Ingrese la ciudad">
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-cancel" (click)="close()">Cancelar</button>
+          <button type="button" class="btn btn-submit" (click)="agregar()">Agregar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 

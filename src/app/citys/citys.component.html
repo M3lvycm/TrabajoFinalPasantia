@@ -1,12 +1,12 @@
 
 <div class="container mt-4 mb-5">
-  
+
   <div class=" alingButton my-4">
     <button class="btn btn-outline-primary add-btn" (click)="mostrarFormulario()">
-      <i class="fas fa-plus-circle me-2"></i>Agregar propiedad
+      <i class="fas fa-plus-circle me-2"></i>Agregar ciudad
     </button>
-   
-   
+
+
   </div>
   <div class="row g-4">
     <div class="col-md-3" *ngFor="let card of cards; let i = index">
@@ -35,22 +35,22 @@
         <label for="img">URL de la imagen</label>
         <input id="img" class="form-control" formControlName="img" placeholder="Ingrese la URL de la imagen">
       </div>
-      
+
       <div class="form-group">
         <label for="title">Título</label>
         <input id="title" class="form-control" formControlName="title" placeholder="Ingrese el título">
       </div>
-      
+
       <div class="form-group">
         <label for="text">Descripción</label>
         <textarea id="text" class="form-control" formControlName="text" rows="3" placeholder="Ingrese la descripción"></textarea>
       </div>
-      
+
       <div class="form-group">
         <label for="city">Ciudad</label>
         <input id="city" class="form-control" formControlName="city" placeholder="Ingrese la ciudad">
       </div>
-      
+
       <div class="form-actions">
         <button type="button" class="btn btn-cancel" (click)="close()">Cancelar</button>
         <button type="button" class="btn btn-submit" (click)="agregar()">Agregar</button>
