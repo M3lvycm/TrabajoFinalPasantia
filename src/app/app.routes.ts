@@ -9,6 +9,10 @@ export const routes: Routes = [
     path: '',
     component: HeroSectionComponent,
   },
+  {
+    path: 'home',
+    component: HeroSectionComponent,
+  },
 {
   path:'register',
   component: RegisterComponent
