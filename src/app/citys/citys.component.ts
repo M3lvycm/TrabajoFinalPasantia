@@ -21,7 +21,7 @@ export class CitysComponent {
       city: ['', Validators.required],
       img: ['', Validators.required]
     })
-      
+
   }
 
 
@@ -38,7 +38,7 @@ export class CitysComponent {
       this.cards.push(this.cityForm.value);
       this.cityForm.reset();
       this.show = false;
-      
+
       // Show success message
       Swal.fire({
         title: '¡Éxito!',
@@ -54,20 +54,20 @@ export class CitysComponent {
         icon: 'error',
         confirmButtonColor: '#591b95'
       });
-      
+
    ;
     }
   }
-  
+
   mostrarFormulario(){
-    this.show = true 
+    this.show = true
   }
-  
+
   close(){
     this.show = false
   }
-  
- 
+
+
 
 
   delete(index?: number) {
@@ -88,7 +88,7 @@ export class CitysComponent {
             const cardElement = document.querySelector(`.card-item-${index}`);
             if (cardElement) {
               cardElement.classList.add('card-delete-animation');
-              
+
               // Wait for animation to complete before removing from array
               setTimeout(() => {
                 this.cards.splice(index, 1);
@@ -105,10 +105,10 @@ export class CitysComponent {
         // Remove last card with animation
         const lastIndex = this.cards.length - 1;
         const cardElement = document.querySelector(`.card-item-${lastIndex}`);
-        
+
         if (cardElement) {
           cardElement.classList.add('card-delete-animation');
-          
+
           setTimeout(() => {
             this.cards.pop();
           }, 500);
