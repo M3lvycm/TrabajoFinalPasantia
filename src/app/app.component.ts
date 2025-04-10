@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { LoginService } from './Service/login.service';
+import { CommonModule } from '@angular/common';
+import { RegisterComponent } from "./register/register.component";
+import { CitysComponent } from "./citys/citys.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CitysComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'houseFinder';
+
+
+  constructor(){}
 }

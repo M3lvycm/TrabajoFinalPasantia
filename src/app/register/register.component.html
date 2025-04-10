@@ -1,43 +1,58 @@
 <div class="container w-75 min-vh-100 d-flex align-items-center justify-content-center py-5">
-    
+  <div class="row align-items-stretch w-100 pop-animation">
+   
 
     <div class="col">
       <div class="text-end ">
           <!-- <img src="image.png" width="48px" alt="image"> -->
         </div>
-      <h2 class="fw-bold text-center ">Bienvenido</h2>
+      <h2 class="fw-bold text-center py-5">Registrate</h2>
 
-      <form [formGroup]="formLogin">
+      <form [formGroup]="formRegister" >
         <div class="mb-4">
           <label for="email" class="form-label"> Email</label>
-          <input label="example@example.com " type="email" class="form-control" name="email" [(ngModel)]="username" formControlName="email">
-          <div *ngIf="formLogin.get('email')?.invalid && formLogin.get('email')?.touched" class="text-danger">
+
+          <input type="email" class="form-control" name="email" [(ngModel)]="username" formControlName="email">
+          <div *ngIf="formRegister.get('email')?.invalid && formRegister.get('email')?.touched" class="text-danger">
             El email es obligatorio
           </div>
+
         </div>
         <div class="mb-4"></div>
         <label for="email" class="form-label"> Password</label>
         <input type="password" class="form-control" name="password" [(ngModel)]="password" formControlName="password">
-        <div *ngIf="formLogin.get('password')?.invalid && formLogin.get('password')?.touched" class="text-danger">
+        <div class="mb-4"></div>
+        <div *ngIf="formRegister.get('password')?.invalid && formRegister.get('password')?.touched" class="text-danger">
           La contraseña debe tener al menos 5 caracteres, una mayúscula, un número y un simbolo
         </div>
+
+
+
+        <label for="email" class="form-label"> Confirm password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="confirmPassword" formControlName="confirmPassword">
         <div class="mb-4"></div>
+        <div *ngIf="formRegister.get('confirmPassword')?.invalid && formRegister.get('confirmPassword')?.touched" class="text-danger">
+          Las contraseñas no coinciden
+        </div>
+
+
+        <div class=" mb-3">
+          <a  class="text-decoration-none">¿Ya tienes una cuenta? Inicia sesión</a>
+                </div>
+
         <div class="d-grid">
-          <button type="submit" class="btn btn-outline-primary" (click)="login()">Iniciar Sesión</button>
+          <button type="submit" class="btn btn-outline-primary" (click)="register()">Registrate</button>
         </div>
 
-        <div class="my-3">
-          <span>No tienes cuenta <a >Registrate</a></span>
-
-        </div>
       </form>
 
+      <!-- Login con redes-->
       <!-- <div class="container w-100 my-5">
         <div class="row text-center">
-          <div class="col-12">Iniciar Sesión</div>
-        </div>
+          <div class="col-12">Registrate</div>
+        </div> -->
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-12 col-md-6">
             <button class="btn btn-outline-primary w-100 my-1">
               <div class="row align-items-center">
@@ -63,8 +78,7 @@
               </div>
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
-</div> -->
