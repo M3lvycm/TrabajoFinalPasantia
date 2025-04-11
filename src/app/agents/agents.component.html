@@ -1,13 +1,20 @@
 
-<div class="container mt-4 mb-5">
+<app-navbar></app-navbar>
+<div class="container mt-4 mb-5 " id="agents">
+
+  <!-- Nuevo encabezado atractivo -->
+  <div class="agents-header text-center my-5">
+    <h2 class="display-4 fw-bold">Agentes de Confianza</h2>
+    <p class="lead text-muted">Profesionales que te ayudarán a tomar la mejor decisión</p>
+    <div class="header-divider mx-auto my-3"></div>
+  </div>
 
   <div class=" alingButton my-4">
-    <button id="citys"  class="btn btn-outline-primary add-btn" (click)="mostrarFormulario()">
+    <button *ngIf="autentication.isAuthenticated()" id="citys"  class="btn btn-outline-primary add-btn" (click)="mostrarFormulario()">
       <i class="fas fa-plus-circle me-2"></i>Agregar agente
     </button>
-
-
   </div>
+
   <div class="row g-4">
     <div class="col-md-3" *ngFor="let card of cards; let i = index">
       <div class="card h-100 shadow-sm card-item-{{i}}">
@@ -141,4 +148,5 @@
 </div>
 
 
-
+<app-section-4></app-section-4>
+<app-footer></app-footer>

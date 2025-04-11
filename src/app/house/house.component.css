@@ -316,6 +316,24 @@
   transform: translateY(-5px);
 }
 
+.btn-purple {
+  background-color: #591b95;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-purple:hover {
+  background-color: #4a1580;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(89, 27, 149, 0.3);
+}
+
+
 .details-modal {
   max-width: 800px;
   width: 90%;
@@ -379,7 +397,7 @@
 }
 
 .modal-footer {
-  margin-top: 20px;
+  margin-bottom: 20px;
   padding-top: 15px;
   border-top: 1px solid #eee;
   display: flex;

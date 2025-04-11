@@ -2,7 +2,7 @@
 <div class="container mt-4 mb-5">
 
   <div class=" alingButton my-4">
-    <button id="citys"  class="btn btn-outline-primary add-btn" (click)="mostrarFormulario()">
+    <button  *ngIf="autentication.isAuthenticated()"   id="citys"  class="btn btn-outline-primary add-btn" (click)="mostrarFormulario()">
       <i class="fas fa-plus-circle me-2"></i>Agregar ciudad
     </button>
 
@@ -15,7 +15,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ card.title }}</h5>
           <p class="card-text">{{ card.text }}</p>
-          <button class="btn btn-outline-danger add-btn-danger inView" (click)="delete(i)">Eliminar</button>
+          <button  *ngIf="autentication.isAuthenticated()"  class="btn btn-outline-danger add-btn-danger inView" (click)="delete(i)">Eliminar</button>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@
       </div>
 
       <div class="form-actions">
-        <button type="button" class="btn btn-cancel" (click)="close()">Cancelar</button>
+        <button type="button" class="btn btn-cancel " (click)="close()">Cancelar</button>
         <button type="button" class="btn btn-submit" (click)="agregar()">Agregar</button>
       </div>
     </form>

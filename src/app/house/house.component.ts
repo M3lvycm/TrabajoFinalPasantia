@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { LoginComponent } from '../login/login.component';
+import { LoginService } from '../Service/login.service';
 
 @Component({
   selector: 'app-house',
@@ -17,7 +19,7 @@ export class HouseComponent {
   showDetailsModal: boolean = false;
   selectedHouse: any = null;
 
-  constructor(private fb: FormBuilder){
+  constructor(private fb: FormBuilder, public autenticador: LoginService){
     this.houseForm = this.fb.group({
       title: ['', Validators.required],
       text: ['', Validators.required],
@@ -39,13 +41,9 @@ export class HouseComponent {
     this.showDetailsModal = false;
   }
 
-  house = [
-    { title: 'Casa en España', text: 'Hermosa villa en la costa mediterránea, Barcelona.', img: 'Hespaña.webp', nH: "4", mC:'150', nG: '2', city: 'Barcelona'  },
-    { title: 'Apartamento en USA', text: 'Moderno apartamento en Kansas, Estados Unidos.', img: 'Husa.jpg', nH: "2", mC:'90', nG: '1', city: 'Kansas' },
-    { title: 'Chalet en Suiza', text: 'Lujoso chalet en los Alpes suizos, Zermatt.', img: 'Csuiza.jpg', nH: "5", mC:'200', nG: '3', city: 'Zermatt'  },
-    { title: 'Villa en Francia', text: 'Elegante villa en la Provenza francesa.', img: 'Cfrancia.jpg', nH: "4", mC:'180', nG: '2', city: 'Provenza'  },
-  ]; 
-  
+
+  @Input()house:any = ""
+
   agregar(){
     if(this.houseForm.valid){
       // Form is valid, add the city

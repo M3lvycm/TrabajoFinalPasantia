@@ -1,0 +1,20 @@
+.agents-header {
+  padding-top: 50px;
+ }
+
+ .agents-header h2 {
+   color: #333;
+   margin-bottom: 10px;
+ }
+
+ .agents-header p {
+   font-size: 1.2rem;
+   color: #666;
+ }
+
+ .header-divider {
+   width: 80px;
+   height: 4px;
+   background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+   border-radius: 2px;
+ }

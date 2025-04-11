@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2'; // Import SweetAlert2
+import { LoginService } from '../Service/login.service';
 
 @Component({
   selector: 'app-citys',
@@ -13,7 +14,7 @@ export class CitysComponent {
   cityForm: FormGroup
 
   show: boolean = false
-  constructor(private fb: FormBuilder){
+  constructor(private fb: FormBuilder, public autentication: LoginService){
 
     this.cityForm = this.fb.group({
       title: ['', Validators.required],
@@ -67,6 +68,8 @@ export class CitysComponent {
   close(){
     this.show = false
   }
+
+  
 
 
 

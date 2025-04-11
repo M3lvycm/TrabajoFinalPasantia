@@ -7,7 +7,7 @@
   height: 100px; /* Aumentado para hacerlas aún más largas */
   max-width: 1200px; /* Aumentado para hacerlas más anchas */
   margin: 0 auto 30px; /* Aumentado el margen inferior para mejor separación */
-  
+
 }
 
 .inView{
@@ -173,8 +173,26 @@
   display: flex;
   justify-content: flex-end;
   gap: 15px;
-  margin-top: 20px;
+  margin: 0;
 }
+
+.btn-purple {
+  background-color: #591b95;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-purple:hover {
+  background-color: #4a1580;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(89, 27, 149, 0.3);
+}
+
 
 .btn-cancel {
   background-color: #f8f9fa;

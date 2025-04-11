@@ -2,10 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { LoginService } from '../Service/login.service';
+import { NavbarComponent } from "../navbar/navbar.component";
+import { FooterComponent } from "../footer/footer.component";
+import { Section4Component } from "../section-4/section-4.component";
 
 @Component({
   selector: 'app-agents',
-  imports: [ReactiveFormsModule, CommonModule ],
+  imports: [ReactiveFormsModule, CommonModule, NavbarComponent, FooterComponent, Section4Component],
   templateUrl: './agents.component.html',
   styleUrl: './agents.component.css'
 })
@@ -17,7 +21,7 @@ export class AgentsComponent {
   showDetailsModal: boolean = false;
   selectedAgent: any = null;
 
-  constructor(private fb: FormBuilder){
+  constructor(private fb: FormBuilder, public autentication: LoginService){
 
     this.cityForm = this.fb.group({
       title: ['', Validators.required],

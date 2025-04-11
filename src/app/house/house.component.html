@@ -1,9 +1,9 @@
 <div id="house" class="container mt-4 mb-5">
   <div class="alingButton my-4">
-    <button class="btn btn-outline-primary add-btn mb-5" (click)="mostrarFormulario()">
+    <button *ngIf="autenticador.isAuthenticated()"    class="btn btn-outline-primary add-btn mb-5" (click)="mostrarFormulario()">
       <i class="fas fa-plus-circle me-2"></i>Agregar propiedad
     </button>
-    <button class="btn btn-outline-danger add-btn-danger inView mb-5" (click)="delete()">
+    <button  *ngIf="autenticador.isAuthenticated()" class="btn btn-outline-danger add-btn-danger inView mb-5" (click)="delete()">
       <i class="fas fa-trash-alt me-2"></i>Eliminar
     </button>
   </div>
@@ -131,7 +131,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="closeDetails()">Cerrar</button>
+      <button type="button" class="btn-purple" (click)="closeDetails()">Cerrar</button>
     </div>
   </div>
 </div>

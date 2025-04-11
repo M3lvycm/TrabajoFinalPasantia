@@ -4,12 +4,19 @@
         <a href="#home"><div class="logo"></div></a>
     </div>
     <ul class="nav-list">
-      <li class="nav-item"><a  (click)="scrollTo('home')" [routerLink]="['home']"> Home</a></li>
-      <li class="nav-item"><a  (click)="scrollTo('house')">Properties</a></li>
-      <li class="nav-item"><a (click)="scrollTo('citys')">citys</a></li>
-      <li class="nav-item"><a href="#services">Agents</a></li>
+      <li class="nav-item"><a  (click)="scrollTo('home')" [routerLink]="['/home']"> Home</a></li>
+      <li class="nav-item"><a [routerLink]="['/properties']">Properties</a></li>
+      <li class="nav-item"><a [routerLink]="['/agents']" >Agents</a></li>
 
-      <li class="nav-item log-in-btn"><a [routerLink]="['/login']">Log In</a></li>
+      <!-- Mostrar botón de Login solo si NO está autenticado -->
+      <li *ngIf="!loginService.isAuthenticated()" class="nav-item log-in-btn">
+        <a [routerLink]="['/login']">Log In</a>
+      </li>
+
+      <!-- Mostrar botón de Logout solo si SÍ está autenticado -->
+      <li *ngIf="loginService.isAuthenticated()" class="nav-item log-in-btn">
+        <a (click)="loginService.logout()">Log Out</a>
+      </li>
     </ul>
   </nav>
 </header>

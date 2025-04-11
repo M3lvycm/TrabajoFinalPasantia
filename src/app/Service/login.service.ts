@@ -18,7 +18,7 @@ export class LoginService {
 
 
   private users: { email: string, password: string }[] = [
-    {email:'melvisyael@gmail.com', password:'Hola1@'},
+
   ];
 
   constructor(private router: Router) { }
@@ -41,9 +41,14 @@ export class LoginService {
     if (user.password !== password) {
       return { success: false, message: 'Credenciales incorrectas' }; // Contraseña incorrecta
     }
-
-
-
+    else {
+      Swal.fire({
+        title: '¡Bienvenido!',
+        text: 'Has iniciado sesión correctamente',
+        icon: 'success',
+        confirmButtonText: 'Continuar'
+      });
+    }
 
     localStorage.setItem('user', email);
     this.router.navigate(['/home']);
@@ -137,6 +142,22 @@ export class LoginService {
   }
 
   isAuthenticated(): boolean {
-    return localStorage.getItem('user') !== null;
+    const storedUser = localStorage.getItem('user');
+    // Verificar que existe un usuario en localStorage y que también existe en nuestra lista de usuarios
+    return storedUser !== null && this.users.some(user => user.email === storedUser);
+  }
+
+  // Método para obtener el usuario actual
+  getCurrentUser(): string | null {
+    return localStorage.getItem('user');
+  }
+
+  // Método para limpiar cualquier sesión inválida
+  limpiarSesionInvalida(): void {
+    const usuarioAlmacenado = this.getCurrentUser();
+    if (usuarioAlmacenado && !this.users.some(user => user.email === usuarioAlmacenado)) {
+      // Si hay un usuario en localStorage pero no existe en nuestra lista de usuarios
+      localStorage.removeItem('user');
+    }
   }
 }
