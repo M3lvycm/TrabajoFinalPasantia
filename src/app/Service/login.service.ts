@@ -46,7 +46,7 @@ export class LoginService {
 
 
     localStorage.setItem('user', email);
-    this.router.navigate(['/inicio']);
+    this.router.navigate(['/home']);
     return { success: true };
   }
 

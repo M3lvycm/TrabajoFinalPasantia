@@ -1,0 +1,144 @@
+
+<div class="container mt-4 mb-5">
+
+  <div class=" alingButton my-4">
+    <button id="citys"  class="btn btn-outline-primary add-btn" (click)="mostrarFormulario()">
+      <i class="fas fa-plus-circle me-2"></i>Agregar agente
+    </button>
+
+
+  </div>
+  <div class="row g-4">
+    <div class="col-md-3" *ngFor="let card of cards; let i = index">
+      <div class="card h-100 shadow-sm card-item-{{i}}">
+        <img [src]="card.img" class="card-img-top" [alt]="card.title">
+        <div class="card-body">
+          <h5 class="card-title">{{ card.title }}</h5>
+          <button class="btn-purple inView" (click)="showDetails(card)">Detalles</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal form with blur background -->
+<div id="citys" class="modal-overlay" *ngIf="show == true">
+  <div class="modal-content">
+    <h3 class="form-title">Agregar Nuevo Agente</h3>
+    <div class="form-container">
+      <form [formGroup]="cityForm">
+        <div class="form-group">
+          <label for="img">URL de la imagen</label>
+          <input id="img" class="form-control" formControlName="img" placeholder="Ingrese la URL de la imagen">
+        </div>
+
+        <div class="form-group">
+          <label for="title">Nombre</label>
+          <input id="title" class="form-control" formControlName="title" placeholder="Ingrese el nombre del agente">
+        </div>
+
+        <div class="form-group">
+          <label for="text">Descripción</label>
+          <textarea id="text" class="form-control" formControlName="text" rows="3" placeholder="Ingrese la descripción profesional"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="city">Ciudad</label>
+          <input id="city" class="form-control" formControlName="city" placeholder="Ingrese la ciudad">
+        </div>
+
+        <!-- Nuevos campos -->
+        <div class="form-group">
+          <label for="age">Edad</label>
+          <input id="age" class="form-control" formControlName="age" placeholder="Ingrese la edad">
+        </div>
+
+        <div class="form-group">
+          <label for="specialty">Especialidad</label>
+          <input id="specialty" class="form-control" formControlName="specialty" placeholder="Ingrese la especialidad">
+        </div>
+
+        <div class="form-group">
+          <label for="rating">Calificación</label>
+          <input id="rating" class="form-control" formControlName="rating" placeholder="Ingrese la calificación (ej: 4.8)">
+        </div>
+
+        <div class="form-group">
+          <label for="properties">Propiedades vendidas</label>
+          <input id="properties" class="form-control" formControlName="properties" placeholder="Ingrese el número de propiedades vendidas">
+        </div>
+
+        <div class="form-group">
+          <label for="location">Ubicación</label>
+          <input id="location" class="form-control" formControlName="location" placeholder="Ingrese la ubicación detallada">
+        </div>
+
+        <div class="form-group">
+          <label for="contact">Contacto</label>
+          <input id="contact" class="form-control" formControlName="contact" placeholder="Ingrese el número de contacto">
+        </div>
+
+        <div class="form-group">
+          <label for="qualification">Formación</label>
+          <input id="qualification" class="form-control" formControlName="qualification" placeholder="Ingrese la formación académica">
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-cancel" (click)="close()">Cancelar</button>
+          <button type="button" class="btn btn-submit" (click)="agregar()">Agregar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Add this at the end of your HTML file -->
+<div class="modal-overlay" *ngIf="showDetailsModal">
+  <div class="modal-content details-modal ">
+    <div class="modal-header">
+      <h3 class="modal-title">{{ selectedAgent?.title }}</h3>
+      <button type="button" class="close-btn" (click)="closeDetails()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="details-image">
+        <img [src]="selectedAgent?.img" [alt]="selectedAgent?.title">
+      </div>
+
+      <div class="details-info">
+        <div class="details-section">
+          <h4>Perfil profesional</h4>
+          <p>{{ selectedAgent?.text }}</p>
+          <p><strong>Edad:</strong> {{ selectedAgent?.age }} años</p>
+          <p><strong>Ubicación:</strong> {{ selectedAgent?.location }}</p>
+          <p><strong>Formacion:</strong> {{ selectedAgent?.qualification }}</p>
+
+
+        </div>
+
+        <div class="details-section">
+          <h4>Estadísticas</h4>
+          <ul class="details-features">
+            <li><i class="fas fa-star"></i> {{ selectedAgent?.rating }} de calificación</li>
+            <li><i class="fas fa-award"></i> {{ selectedAgent?.specialty }}</li>
+            <li><i class="fas fa-home"></i> {{ selectedAgent?.properties }} propiedades vendidas</li>
+          </ul>
+        </div>
+
+        <div  class="details-section">
+          <h4> Contacto</h4>
+          <p><i class="fas fa-phone"></i>{{selectedAgent?.contact}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-purple " (click)="closeDetails()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+
+

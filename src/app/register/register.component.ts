@@ -59,7 +59,7 @@ export class RegisterComponent {
         confirmButtonText: 'Aceptar'
       });
 
-      this.router.navigate(['/inicio']);
+      this.router.navigate(['/home']);
     }
   }
 

@@ -13,7 +13,7 @@ import { FooterComponent } from "./footer/footer.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, CitysComponent, HouseComponent, Section4Component, HeroSectionComponent, FooterComponent],
+  imports: [RouterOutlet, NavbarComponent, CitysComponent, HouseComponent, Section4Component, HeroSectionComponent, FooterComponent, RegisterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

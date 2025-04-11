@@ -11,37 +11,42 @@ import Swal from 'sweetalert2';
 })
 export class HouseComponent {
 
+  houseForm: FormGroup
+  show: boolean = false
+  // Add these properties inside the class
+  showDetailsModal: boolean = false;
+  selectedHouse: any = null;
 
-houseForm: FormGroup
+  constructor(private fb: FormBuilder){
+    this.houseForm = this.fb.group({
+      title: ['', Validators.required],
+      text: ['', Validators.required],
+      city: ['', Validators.required],
+      img: ['', Validators.required],
+      nH: ['', Validators.required],
+      nG: ['', Validators.required],
+      mC: ['', Validators.required]
+    })
+  }
 
-show: boolean = false
+  // Add these methods inside the class
+  showDetails(house: any) {
+    this.selectedHouse = house;
+    this.showDetailsModal = true;
+  }
 
-
-constructor(private fb: FormBuilder){
-
-  this.houseForm = this.fb.group({
-    title: ['', Validators.required],
-    text: ['', Validators.required],
-    city: ['', Validators.required],
-    img: ['', Validators.required],
-    nH: ['', Validators.required],
-    nG: ['', Validators.required],
-    mC: ['', Validators.required]
-
-  })
-
-}
-
-
-
+  closeDetails() {
+    this.showDetailsModal = false;
+  }
 
   house = [
-    { title: 'La 27 de febrero', text: 'Av. 27 de Febrero #429, Santo Domingo.', img: '501673-arenas-de-barcelona.webp', nH: "3", mC:'120', nG: '2'  },
-    { title: 'U.S.A', text: 'Av. George Washington #1, Santo Domingo.', img: 'About_the_USA_NYC_Statue_Liberty_._CROP_Web72DPI.jpg', nH: "3", mC:'120', nG: '2' },
-    { title: 'Lincoln', text: 'Av. Abraham Lincoln, Santo Domingo.', img: 'K71TBD.webp', nH: "3", mC:'120', nG: '2'  },
-    { title: 'San Vicente', text: 'Av. San Vicente de Paúl, Santo Domingo Este.', img: 'photo-1502602898657-3e91760cbb34.jpg', nH: "3", mC:'120', nG: '2'  },
-
-  ]; agregar(){
+    { title: 'Casa en España', text: 'Hermosa villa en la costa mediterránea, Barcelona.', img: 'Hespaña.webp', nH: "4", mC:'150', nG: '2', city: 'Barcelona'  },
+    { title: 'Apartamento en USA', text: 'Moderno apartamento en Kansas, Estados Unidos.', img: 'Husa.jpg', nH: "2", mC:'90', nG: '1', city: 'Kansas' },
+    { title: 'Chalet en Suiza', text: 'Lujoso chalet en los Alpes suizos, Zermatt.', img: 'Csuiza.jpg', nH: "5", mC:'200', nG: '3', city: 'Zermatt'  },
+    { title: 'Villa en Francia', text: 'Elegante villa en la Provenza francesa.', img: 'Cfrancia.jpg', nH: "4", mC:'180', nG: '2', city: 'Provenza'  },
+  ]; 
+  
+  agregar(){
     if(this.houseForm.valid){
       // Form is valid, add the city
       this.house.push(this.houseForm.value);

@@ -2,7 +2,7 @@
 <div class="container mt-4 mb-5">
 
   <div class=" alingButton my-4">
-    <button class="btn btn-outline-primary add-btn" (click)="mostrarFormulario()">
+    <button id="citys"  class="btn btn-outline-primary add-btn" (click)="mostrarFormulario()">
       <i class="fas fa-plus-circle me-2"></i>Agregar ciudad
     </button>
 
@@ -27,7 +27,7 @@
 
 
 <!-- Modal form with blur background -->
-<div class="modal-overlay" *ngIf="show == true">
+<div id="citys" class="modal-overlay" *ngIf="show == true">
   <div class="modal-content">
     <h3 class="form-title">Agregar Nueva Propiedad</h3>
     <form [formGroup]="cityForm">

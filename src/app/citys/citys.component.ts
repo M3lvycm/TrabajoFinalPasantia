@@ -26,11 +26,12 @@ export class CitysComponent {
 
 
   cards = [
-    { title: 'La 27 de febrero', text: 'Av. 27 de Febrero #429, Santo Domingo.', img: '501673-arenas-de-barcelona.webp',  },
-    { title: 'U.S.A', text: 'Av. George Washington #1, Santo Domingo.', img: 'About_the_USA_NYC_Statue_Liberty_._CROP_Web72DPI.jpg',  },
-    { title: 'Lincoln', text: 'Av. Abraham Lincoln, Santo Domingo.', img: 'K71TBD.webp',  },
-    { title: 'San Vicente', text: 'Av. San Vicente de Paúl, Santo Domingo Este.', img: 'photo-1502602898657-3e91760cbb34.jpg',  },
+    { title: 'España', text: 'España es un país maravilloso conocido por su rica historia, arquitectura impresionante y una gastronomía excepcional como la paella y las tapas.', img: '501673-arenas-de-barcelona.webp' },
+    { title: 'U.S.A', text: 'Estados Unidos es una nación diversa y dinámica, famosa por su influencia cultural, tecnológica y paisajes icónicos como el Gran Cañón y la Estatua de la Libertad.', img: 'About_the_USA_NYC_Statue_Liberty_._CROP_Web72DPI.jpg' },
+    { title: 'Suiza', text: 'Suiza es conocida por sus paisajes alpinos, relojes de precisión, chocolates deliciosos y una calidad de vida envidiable.', img: 'K71TBD.webp' },
+    { title: 'Francia', text: 'Francia es sinónimo de elegancia, arte y romanticismo. Su capital, París, es mundialmente conocida por la Torre Eiffel, el Louvre y su exquisita cocina.', img: 'photo-1502602898657-3e91760cbb34.jpg' },
   ];
+
 
   agregar(){
     if(this.cityForm.valid){
