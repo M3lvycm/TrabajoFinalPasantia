@@ -1,6 +1,5 @@
 .container {
     background: linear-gradient(to bottom, #C3DFED, #DFF0F7);
-    height: 480px;
     border-radius: 20px;
     padding: 0;
     display: flex;
@@ -13,30 +12,43 @@
 }
 
 .text-container {
-    padding: 80px;
-    display: flex;
-    flex-direction: column;
-}
-
-.text-container {
     font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
-    gap: 60px;
+    height: 100%;
+    height: auto;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 5%;
+
+    gap: 40px;
 }
+
+
 
 .main-text{
     color: #110229;
-    font-size: 60px;
+    font-size: 50px;
     font-weight: bolder;
 }
-
+X
 .sub-text{
     color: #585981;
-    font-size: 25px;
+    font-size: 15px;
     font-weight: 500;
     line-height: 40px;
 }
 
+.text {
+    padding: 0;
+    margin: 0;
+}
+
 .img-container {
     background-image: url('../../assets/img/simone-hutsch-8n9npBvQUWg-unsplash\ 1.png');
+    background-size: contain;
+    background-position: bottom;
+    background-repeat: no-repeat;
 }
