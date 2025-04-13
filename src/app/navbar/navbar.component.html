@@ -15,7 +15,7 @@
 
       <!-- Mostrar botón de Logout solo si SÍ está autenticado -->
       <li *ngIf="loginService.isAuthenticated()" class="nav-item log-in-btn">
-        <a (click)="loginService.logout()">Log Out</a>
+        <a [routerLink]="['/dashBoard']">Perfil</a>
       </li>
     </ul>
   </nav>
