@@ -1,0 +1,70 @@
+.dashboard-container {
+  margin-left: 250px; /* Width of the sidebar */
+  padding: 20px;
+  padding-top: 70px; /* Space for navbar */
+  width: calc(100% - 250px);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    margin-left: 70px; /* Width of collapsed sidebar on mobile */
+    width: calc(100% - 70px);
+  }
+}
+
+.properties-container {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-title {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  padding-top: 1rem;
+}
+
+.stat-card {
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.stat-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+}
+
+.stat-card-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.stat-card-label {
+  font-size: 0.9rem;
+}

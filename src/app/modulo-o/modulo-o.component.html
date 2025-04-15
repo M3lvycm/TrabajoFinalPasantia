@@ -1,0 +1,84 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<div class="dashboard-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 mb-4">
+        <div class="text-center">
+          <h2 class="dashboard-title">
+            <i class="fas fa-tachometer-alt me-2"></i>
+            Dashboard
+          </h2>
+          <p class="text-muted">Resumen de actividad y estadísticas</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Cards Row -->
+    <div class="row mb-4">
+      <div class="col-md-4 mb-3">
+        <div class="stat-card bg-white shadow-sm border-start border-primary border-4">
+          <div class="stat-card-body d-flex align-items-center p-4">
+            <div class="stat-card-icon bg-primary text-white rounded-circle me-3">
+              <i class="fas fa-building"></i>
+            </div>
+            <div class="stat-card-info">
+              <h3 class="stat-card-value mb-1">{{house.length}}</h3>
+              <p class="stat-card-label mb-0 text-muted">Propiedades en Venta</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <div class="stat-card bg-white shadow-sm border-start border-success border-4">
+          <div class="stat-card-body d-flex align-items-center p-4">
+            <div class="stat-card-icon bg-success text-white rounded-circle me-3">
+              <i class="fas fa-city"></i>
+            </div>
+            <div class="stat-card-info">
+              <h3 class="stat-card-value mb-1">{{citys.length}}</h3>
+              <p class="stat-card-label mb-0 text-muted">Ciudades Disponibles</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <div class="stat-card bg-white shadow-sm border-start border-info border-4">
+          <div class="stat-card-body d-flex align-items-center p-4">
+            <div class="stat-card-icon bg-info text-white rounded-circle me-3">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="stat-card-info">
+              <h3 class="stat-card-value mb-1">{{agents.length}}</h3>
+              <p class="stat-card-label mb-0 text-muted">Agentes Activos</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Properties Section -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header d-flex justify-content-between align-items-center bg-light">
+            <h5 class="mb-0">
+              <i class="fas fa-home me-2"></i>
+              Propiedades Recientes
+            </h5>
+          </div>
+          <div class="card-body p-3 bg-white rounded">
+            <div class="properties-container">
+              <app-house></app-house>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Cities and Agents Section -->
+
+

@@ -7,21 +7,24 @@ import { FilterPipe } from '../pipes/filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { routes } from '../app.routes';
 import { Router, RouterModule } from '@angular/router';
+import { SidebarComponent } from "../sidebar/sidebar.component";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  imports: [NavbarComponent, ReactiveFormsModule, CommonModule, FilterPipe, FormsModule, RouterModule ]
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule, FilterPipe, FormsModule, RouterModule, SidebarComponent]
 })
 export class DashboardComponent {
   houses: any[] = [];
   houseForm: FormGroup;
   editIndex: number = -1;
 
+  // Add this property
+
   constructor(
     private propertiesService: PropertiesService,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
     this.houses = this.propertiesService.getHouses();
 

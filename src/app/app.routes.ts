@@ -8,6 +8,9 @@ import { HouseComponent } from './house/house.component';
 import { PropertiesComponent } from './properties/properties.component';
 import { DefaultValueAccessor } from '@angular/forms';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ModuloOComponent } from './modulo-o/modulo-o.component';
+import { DashcityComponent } from './dashcity/dashcity.component';
+import { DashagentsComponent } from './dashagents/dashagents.component';
 
 export const routes: Routes = [
 
@@ -36,9 +39,22 @@ export const routes: Routes = [
   component: AgentsComponent
 },
  {
-   path:'dashBoard',
+   path:'dashProperties',
   component: DashboardComponent
- }
+ },
+ {
+  path:'perfil',
+  component:  ModuloOComponent
+ },
+{
+  path: 'dashCity',
+  component: DashcityComponent
+},
+{
+  path: 'dashAgents',
+  component: DashagentsComponent
+}
+
 
 
 ];

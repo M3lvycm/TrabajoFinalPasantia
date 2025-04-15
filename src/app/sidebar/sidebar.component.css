@@ -1,77 +1,11 @@
 .dashboard-container {
   background-color: #f8f9fa;
-  min-height: calc(100vh - 56px);
   padding-bottom: 2rem;
 }
 
 .dashboard-title {
-  font-weight: 600;
   color: #333;
-  position: relative;
-  display: inline-block;
-}
-
-.dashboard-title:after {
-  content: '';
-  position: absolute;
-  width: 50px;
-  height: 3px;
-  background-color: #007bff;
-  bottom: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.form-card {
-  transition: all 0.3s ease;
-}
-
-.form-card:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
-}
-
-.property-card {
-  transition: all 0.3s ease;
-  background-color: #fff;
-}
-
-.hover-effect:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
-}
-
-.property-img-container {
-  height: 100%;
-  overflow: hidden;
-}
-
-.property-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.property-title {
   font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.property-specs {
-  font-size: 0.9rem;
-}
-
-.badge {
-  padding: 0.5rem 0.7rem;
-}
-
-.input-group .form-control:focus {
-  box-shadow: none;
-  border-color: #ced4da;
-}
-
-.input-group .btn-outline-primary:hover {
-  background-color: #007bff;
-  color: white;
 }
 
 .dashboard-stats {
@@ -169,10 +103,11 @@
 }
 
 
-/* Sidebar styling */
+/* Sidebar layout */
 .dashboard-layout {
   display: flex;
-  min-height: 100vh;
+  margin-top: 50px;
+  position: relative;
 }
 
 /* Sidebar styling */
@@ -184,10 +119,11 @@
   top: 56px;
   left: 0;
   height: calc(100vh - 56px);
+   margin-top: 20px;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
-  z-index: 1000;
+  z-index: 10; /* Lower z-index to ensure it stays below other elements */
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -239,6 +175,7 @@
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .sidebar-menu-item:hover, .sidebar-menu-item.active {
@@ -264,6 +201,7 @@
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .sidebar-footer-item:hover {
@@ -275,6 +213,22 @@
   margin-right: 0.75rem;
   width: 20px;
   text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+    overflow: hidden;
+  }
+
+  .sidebar-header, .user-info, .user-name, .user-properties {
+    display: none;
+  }
+
+  .sidebar-menu-item span, .sidebar-footer-item span {
+    display: none;
+  }
 }
 
 /* Adjust main content to make room for sidebar */
@@ -600,113 +554,114 @@
   border: none;
   transition: all 0.3s ease;
   position: sticky;
-  top: 120px;
-  /* Removing the max-height and overflow-y that were causing the scrollbar */
+  top: 120px; /* Adjusted to account for navbar and some spacing */
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
   left: 0;
-  background-color: #ffffff;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
 }
 
 .form-card:hover {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
-.form-card .card-header {
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
-  padding: 1.2rem 1.5rem;
-  border: none;
+/* Scrollbar styling for the sticky form */
+.form-card::-webkit-scrollbar {
+  width: 6px;
 }
 
-.form-card .card-header h5 {
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+.form-card::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
 }
 
-.form-card .card-body {
-  padding: 1.8rem;
+.form-card::-webkit-scrollbar-thumb {
+  background: #007bff;
+  border-radius: 10px;
 }
 
-.form-floating {
-  margin-bottom: 1.2rem;
+.form-card::-webkit-scrollbar-thumb:hover {
+  background: #0056b3;
 }
 
-/* Fix for floating labels with icons */
-.small-label {
-  font-size: 0.85rem;
-  padding-top: 0.65rem !important;
+.form-floating > label {
+  color: #6c757d;
 }
 
-.form-floating > .form-control {
-  height: 58px;
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  color: #007bff;
+  font-weight: 500;
 }
 
-.form-floating > .form-control:focus ~ .small-label,
-.form-floating > .form-control:not(:placeholder-shown) ~ .small-label {
-  transform: scale(0.85) translateY(-0.6rem) translateX(0.15rem);
-}
-
-.input-group {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
 }
 
 .input-group-text {
-  background-color: #f8f9fa;
-  color: #3a7bd5;
-  border: 1px solid #e0e0e0;
-  border-right: none;
-  padding: 0.75rem 1rem;
-}
-
-.input-group .form-control {
-  border-left: none;
-  padding: 0.75rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
 }
 
 .image-preview {
   max-width: 100%;
-  margin-top: 1rem;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
 .image-preview:hover {
   transform: scale(1.02);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .image-preview img {
   width: 100%;
   height: auto;
-  border-radius: 10px;
+  border-radius: 8px;
   border: none;
 }
 
-/* Button styling for form */
+/* Button styling */
 .btn-primary {
-  background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+  background: linear-gradient(45deg, #007bff, #0056b3);
   border: none;
-  border-radius: 8px;
-  padding: 0.8rem 1.5rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
   transition: all 0.3s ease;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #2d62aa, #00b8e0);
+  background: linear-gradient(45deg, #0056b3, #003d80);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(58, 123, 213, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-success {
+  background: linear-gradient(45deg, #28a745, #1e7e34);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover:not(:disabled) {
+  background: linear-gradient(45deg, #1e7e34, #145523);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-info {
+  background: linear-gradient(45deg, #17a2b8, #117a8b);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-info:hover:not(:disabled) {
+  background: linear-gradient(45deg, #117a8b, #0c525d);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-outline-secondary {
   border: 2px solid #6c757d;
-  border-radius: 8px;
-  padding: 0.8rem 1.5rem;
   font-weight: 500;
   transition: all 0.3s ease;
 }
@@ -715,16 +670,4 @@
   background-color: #6c757d;
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
-}
-
-/* Form field groups */
-.row.g-3 .form-floating {
-  margin-bottom: 0;
-}
-
-.form-label.fw-bold {
-  color: #495057;
-  margin-bottom: 0.75rem;
-  font-size: 0.95rem;
 }
