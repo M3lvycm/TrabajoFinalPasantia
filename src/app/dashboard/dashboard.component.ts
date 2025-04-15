@@ -3,12 +3,16 @@ import { PropertiesService } from '../Service/properties.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { CommonModule } from '@angular/common';
+import { FilterPipe } from '../pipes/filter.pipe';
+import { FormsModule } from '@angular/forms';
+import { routes } from '../app.routes';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  imports: [NavbarComponent, ReactiveFormsModule, CommonModule]
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule, FilterPipe, FormsModule, RouterModule ]
 })
 export class DashboardComponent {
   houses: any[] = [];
@@ -17,7 +21,7 @@ export class DashboardComponent {
 
   constructor(
     private propertiesService: PropertiesService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {
     this.houses = this.propertiesService.getHouses();
 
@@ -78,4 +82,28 @@ export class DashboardComponent {
     this.houseForm.reset();
     this.editIndex = -1;
   }
+
+  // Add these properties to your component class
+  searchTerm: string = '';
+  imagePreview: string | ArrayBuffer | null = null;
+
+  // Add this method to your component class
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      // Update the form control with the file name
+      this.houseForm.patchValue({
+        img: file.name
+      });
+
+      // Create a preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+
 }
