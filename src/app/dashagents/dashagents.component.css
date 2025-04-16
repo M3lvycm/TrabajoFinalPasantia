@@ -56,6 +56,20 @@
   margin-bottom: 1.5rem;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   margin: auto;
+  margin-right: 10px; /* Added right margin to create space from sidebar */
+}
+
+/* Adjust margin for different screen sizes */
+@media (max-width: 992px) {
+  .card-text {
+    margin-right: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-text {
+    margin-right: 20px;
+  }
 }
 
 .add-btn {
@@ -431,3 +445,229 @@
 
 
 
+@media (max-width: 989px) {
+  .dashboard-content {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .containerss {
+    margin-left: 0;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .col-md-5 {
+    width: 90%;
+    max-width: 500px;
+  }
+
+  .card {
+    height: 80px;
+    border-radius: 25px;
+    margin-bottom: 15px;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+  }
+
+  .agents-header p {
+    font-size: 1rem;
+    margin-right: 20px; /* Added right margin to the paragraph */
+  }
+}
+
+
+
+@media (max-width: 992px) {
+  .dashboard-content {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .containerss {
+    margin-left: 0;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .col-md-5 {
+    width: 90%;
+    max-width: 500px;
+  }
+
+  .card {
+    height: 80px;
+    border-radius: 25px;
+    margin-bottom: 15px;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+  }
+
+  .agents-header p {
+    font-size: 1rem;
+    margin-right: 20px; /* Added right margin to the paragraph */
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    height: 70px;
+    border-radius: 20px;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  .card-actions {
+    margin-top: 5px;
+  }
+
+  .btn-purple, .btn-purple-edit, .btn-purple-danger {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+  }
+
+  .agents-header p {
+    font-size: 0.9rem;
+    margin-right: 20px; /* Added right margin to the paragraph */
+  }
+}
+
+@media (max-width: 555px) {
+  .col-md-5 {
+    width: 95%;
+  }
+
+  .card {
+    height: 60px;
+    border-radius: 15px;
+    width: 200px;
+    margin-left: 80px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-text {
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-actions {
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .btn-purple, .btn-purple-edit, .btn-purple-danger {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+  }
+
+  .agents-header p {
+    font-size: 0.8rem;
+    margin-left:80px; /* Added right margin to the paragraph */
+  }
+
+  .add-btn{
+    margin-left: 40px;
+  }
+
+  .agents-header h2 {
+    font-size: 2.8rem;
+    margin-left:60px; /* Added right margin to the paragraph */
+  }
+
+  .header-divider{
+    margin-left: 165px;
+  }
+}
+
+@media (max-width: 576px) {
+  .col-md-5 {
+    width: 96%;
+  }
+
+  .card {
+    height: 400px;
+    border-radius: 15px;
+    width: 400px;
+    margin-left: 70px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-text {
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-actions {
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .btn-purple, .btn-purple-edit, .btn-purple-danger {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+  }
+
+  .agents-header p {
+    font-size: 0.8rem;
+    margin-left:80px; /* Added right margin to the paragraph */
+  }
+
+  .add-btn{
+    margin-left: 40px;
+  }
+
+  .agents-header h2 {
+    font-size: 2.8rem;
+    margin-left:60px; /* Added right margin to the paragraph */
+  }
+
+  .header-divider{
+    margin-left: 165px;
+  }
+}
+
+@media (max-width: 504px) {
+  .card{
+    width: 250px;
+    margin-left: 70px;
+  }
+
+}

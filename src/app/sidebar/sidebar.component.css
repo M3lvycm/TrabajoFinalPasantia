@@ -215,6 +215,22 @@
   text-align: center;
 }
 
+@media (max-width: 968px) {
+  .sidebar {
+    width: 70px;
+    overflow: hidden;
+  }
+
+  .sidebar-header, .user-info, .user-name, .user-properties {
+    display: none;
+  }
+
+  .sidebar-menu-item span, .sidebar-footer-item span {
+    display: none;
+  }
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .sidebar {
