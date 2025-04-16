@@ -11,5 +11,14 @@ import { HouseComponent } from "../house/house.component";
   styleUrl: './modulo-o.component.css'
 })
 export class ModuloOComponent {
+  totalHouses: number = 0;
+  totalAgents: number = 0;
+  totalCitys: number = 0;
+
+  constructor( private prop: PropertiesService) {
+    this.totalHouses = this.prop.houses.length;
+    this.totalAgents = this.prop.agents.length;
+    this.totalCitys = this.prop.citys.length;
+  }
 
 }
