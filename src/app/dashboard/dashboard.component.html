@@ -1,0 +1,155 @@
+
+
+
+<app-navbar></app-navbar>
+
+<div class="dashboard-container mt-5 pt-5">
+  <div class="container-fluid mt-4">
+    <div class="row">
+      <div class="col-lg-12 mb-4">
+        <div class="text-center">
+          <h2 class="dashboard-title py-3">
+            <i class="fas fa-building me-2"></i>
+            Gestión de Propiedades
+          </h2>
+          <p class="text-muted mb-4">Administra tu catálogo de propiedades inmobiliarias</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Formulario para agregar/editar propiedades -->
+      <div class="col-lg-4">
+        <div class="card shadow-sm mb-4 form-card border-0">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+              <i class="fas {{ editIndex === -1 ? 'fa-plus-circle' : 'fa-edit' }} me-2"></i>
+              {{ editIndex === -1 ? 'Agregar Nueva Propiedad' : 'Editar Propiedad' }}
+            </h5>
+          </div>
+
+
+
+          <div class="card-body p-4">
+            <form [formGroup]="houseForm" (ngSubmit)="addHouse()">
+              <div class="mb-4">
+                <label for="img" class="form-label fw-bold">Imagen de la propiedad</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="fas fa-image text-primary"></i></span>
+                  <input type="file" class="form-control" id="img" (change)="onFileSelected($event)" accept="image/*">
+                </div>
+                <input type="hidden" formControlName="img">
+                <div class="image-preview mt-3" *ngIf="imagePreview">
+                  <img [src]="imagePreview" alt="Vista previa" class="img-thumbnail shadow-sm">
+                </div>
+              </div>
+              
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="title" formControlName="title" placeholder="Título">
+                <label for="title">Título</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="city" formControlName="city" placeholder="Ciudad">
+                <label for="city">Ciudad</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <textarea class="form-control" id="text" rows="3" formControlName="text" placeholder="Descripción" style="height: 100px"></textarea>
+                <label for="text">Descripción</label>
+              </div>
+
+           
+
+              <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                  <div class="form-floating">
+                    <input type="number" class="form-control" id="nH" formControlName="nH" min="1" placeholder="Habitaciones">
+                    <label for="nH" class="small-label"><i class="fas fa-bed me-1"></i> Hab.</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating">
+                    <input type="number" class="form-control" id="mC" formControlName="mC" min="1" placeholder="Metros²">
+                    <label for="mC" class="small-label"><i class="fas fa-ruler-combined me-1"></i> m²</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-floating">
+                    <input type="number" class="form-control" id="nG" formControlName="nG" min="0" placeholder="Garajes">
+                    <label for="nG" class="small-label"><i class="fas fa-car me-1"></i> Garajes</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary flex-grow-1 btn-lg" [disabled]="houseForm.invalid">
+                  <i class="fas {{ editIndex === -1 ? 'fa-plus-circle' : 'fa-save' }} me-2"></i>
+                  {{ editIndex === -1 ? 'Agregar' : 'Actualizar' }}
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-lg" *ngIf="editIndex !== -1" (click)="cancelEdit()">
+                  <i class="fas fa-times me-2"></i>Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista de propiedades existentes -->
+      <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-light d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+              <i class="fas fa-list me-2"></i>
+              Propiedades Existentes
+            </h5>
+            <div class="input-group" style="max-width: 300px;">
+              <input type="text" class="form-control border-end-0" placeholder="Buscar propiedad..." [(ngModel)]="searchTerm">
+              <button class="btn btn-outline-primary" type="button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body p-3">
+            <div class="property-list">
+              <div class="row">
+                <div class="col-md-6 mb-3" *ngFor="let house of houses | filter:searchTerm; let i = index">
+                  <div class="property-card shadow-sm border-0 h-100 rounded overflow-hidden hover-effect">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <div class="property-img-container">
+                          <img [src]="house.img" class="property-img" alt="{{house.title}}">
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="property-details p-3">
+                          <h6 class="property-title text-primary">{{house.title}}</h6>
+                          <p class="property-location text-muted mb-2"><i class="fas fa-map-marker-alt text-danger"></i> {{house.city}}</p>
+                          <div class="property-specs d-flex gap-3 mb-3">
+                            <span class="badge bg-light text-dark"><i class="fas fa-bed text-primary me-1"></i> {{house.nH}}</span>
+                            <span class="badge bg-light text-dark"><i class="fas fa-ruler-combined text-success me-1"></i> {{house.mC}}m²</span>
+                            <span class="badge bg-light text-dark"><i class="fas fa-car text-info me-1"></i> {{house.nG}}</span>
+                          </div>
+                          <div class="property-actions">
+                            <button class="btn btn-sm btn-outline-primary me-2" (click)="editHouse(i)">
+                              <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" (click)="deleteHouse(i)">
+                              <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-sidebar></app-sidebar>
+</div>

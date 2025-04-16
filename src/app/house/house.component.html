@@ -1,40 +1,40 @@
 <div id="house" class="container mt-4 mb-5">
   <div class="alingButton my-4">
-    <button *ngIf="autenticador.isAuthenticated()"    class="btn btn-outline-primary add-btn mb-5" (click)="mostrarFormulario()">
+    <button *ngIf="autenticador.isAuthenticated()" class="btn btn-outline-primary add-btn mb-5" (click)="mostrarFormulario()">
       <i class="fas fa-plus-circle me-2"></i>Agregar propiedad
     </button>
-    <button  *ngIf="autenticador.isAuthenticated()" class="btn btn-outline-danger add-btn-danger inView mb-5" (click)="delete()">
+    <button *ngIf="autenticador.isAuthenticated()" class="btn btn-outline-danger add-btn-danger inView mb-5" (click)="delete()">
       <i class="fas fa-trash-alt me-2"></i>Eliminar
     </button>
   </div>
 
   <div class="row row-cols-1 row-cols-md-2 g-4">
-    <div class="col" *ngFor="let house of house; let i = index">
+    <div class="col" *ngFor="let currentHouse of  recentHouse; let i = index">
       <div class="property-card card-item-{{i}}">
-        <div class="property-card-inner" (click)="showDetails(house)">
+        <div class="property-card-inner" (click)="showDetails(currentHouse)">
           <div class="property-image">
-            <img [src]="house.img" [alt]="house.title">
+            <img [src]="currentHouse.img" [alt]="currentHouse.title">
           </div>
 
           <div class="property-content">
-            <h4 class="property-title">{{ house.title }}</h4>
+            <h4 class="property-title">{{ currentHouse.title }}</h4>
 
             <div class="property-details">
               <div class="detail-item">
                 <i class="fas fa-bed"></i>
-                <span>{{house.nH}} Habitaciones</span>
+                <span>{{currentHouse.nH}} Habitaciones</span>
               </div>
               <div class="detail-item">
                 <i class="fas fa-ruler-combined"></i>
-                <span>{{house.mC}} m²</span>
+                <span>{{currentHouse.mC}} m²</span>
               </div>
               <div class="detail-item">
                 <i class="fas fa-car"></i>
-                <span>{{house.nG}} Garajes</span>
+                <span>{{currentHouse.nG}} Garajes</span>
               </div>
             </div>
 
-            <p class="property-description">{{ house.text }}</p>
+            <p class="property-description">{{ currentHouse.text }}</p>
 
             <a class="btn btn-primary visit-btn">Detalles</a>
           </div>

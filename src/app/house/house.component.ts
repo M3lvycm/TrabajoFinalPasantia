@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import Swal from 'sweetalert2';
 import { LoginComponent } from '../login/login.component';
 import { LoginService } from '../Service/login.service';
+import { PropertiesService } from '../Service/properties.service';
 
 @Component({
   selector: 'app-house',
@@ -12,14 +13,16 @@ import { LoginService } from '../Service/login.service';
   styleUrl: './house.component.css'
 })
 export class HouseComponent {
-
+  recentHouse: any[] = [];
   houseForm: FormGroup
   show: boolean = false
   // Add these properties inside the class
   showDetailsModal: boolean = false;
   selectedHouse: any = null;
 
-  constructor(private fb: FormBuilder, public autenticador: LoginService){
+  constructor(private fb: FormBuilder, public autenticador: LoginService, private properties: PropertiesService){
+     
+    this.recentHouse = properties.getRecentHouse()
     this.houseForm = this.fb.group({
       title: ['', Validators.required],
       text: ['', Validators.required],
@@ -47,7 +50,7 @@ export class HouseComponent {
   agregar(){
     if(this.houseForm.valid){
       // Form is valid, add the city
-      this.house.push(this.houseForm.value);
+      this.recentHouse.push(this.houseForm.value);
       this.houseForm.reset();
       this.show = false;
 
@@ -97,7 +100,7 @@ export class HouseComponent {
             // Eliminar una propiedad específica
 
             // Eliminar la última propiedad
-            this.house.pop();
+            this.recentHouse.pop();
                // Mostrar mensaje de éxito
           Swal.fire(
             '¡Eliminado!',

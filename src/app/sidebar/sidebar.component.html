@@ -1,0 +1,39 @@
+<div class="dashboard-layout">
+  <!-- Left Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="profile-image-container">
+        <img src="assets/user-profile.jpg" alt="Profile" class="profile-image" onerror="this.src='assets/default-user.png'">
+      </div>
+      <div class="user-info">
+        <h5 class="text-primaty text-center">John Doe</h5>
+        <p class="user-properties">Propiedades: {{house.length}}</p>
+      </div>
+    </div>
+
+    <div class="sidebar-menu">
+      <a  [routerLink]="['/perfil']"       class="sidebar-menu-item" [class.active]="activeModule === 'dashboard'" (click)="setActiveModule('dashboard')"    >
+        <i class="fas fa-chart-pie"></i>
+        <span>Dashboard</span>
+      </a>
+      <a [routerLink]="['/dashProperties']"  class="sidebar-menu-item" [class.active]="activeModule === 'properties'" (click)="setActiveModule('properties')">
+        <i class="fas fa-building"></i>
+        <span>Propiedades</span>
+      </a>
+      <a [routerLink]="['/dashCity']" class="sidebar-menu-item" [class.active]="activeModule === 'cities'" (click)="setActiveModule('cities')">
+        <i class="fas fa-city"></i>
+        <span>Ciudades</span>
+      </a>
+      <a [routerLink]="['/dashAgents']"   class="sidebar-menu-item" [class.active]="activeModule === 'agents'" (click)="setActiveModule('agents')">
+        <i class="fas fa-user-tie"></i>
+        <span>Agentes</span>
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <a class="sidebar-footer-item" (click)="loginService.logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Cerrar Sesión</span>
+      </a>
+    </div>
+  </div>

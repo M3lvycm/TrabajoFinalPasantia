@@ -1,22 +1,49 @@
 <header class="header">
-  <nav class="nav" aria-label="Barra de navegación principal">
+  <nav class="nav">
     <div class="logo-container">
-        <a href="#home"><div class="logo"></div></a>
+      <div class="logo"></div>
     </div>
+
     <ul class="nav-list">
-      <li class="nav-item"><a  (click)="scrollTo('home')" [routerLink]="['/home']"> Home</a></li>
+      <li class="nav-item"><a [routerLink]="['/home']">Home</a></li>
       <li class="nav-item"><a [routerLink]="['/properties']">Properties</a></li>
-      <li class="nav-item"><a [routerLink]="['/agents']" >Agents</a></li>
+      <li class="nav-item"><a [routerLink]="['/agents']">Agents</a></li>
+      <li *ngIf="!Validator" class="nav-item log-in-btn"><a [routerLink]="['/login']">Log In</a></li>
+      <li *ngIf="Validator" class="nav-item log-in-btn"><a [routerLink]="['/perfil']">Perfil</a></li>
 
-      <!-- Mostrar botón de Login solo si NO está autenticado -->
-      <li *ngIf="!loginService.isAuthenticated()" class="nav-item log-in-btn">
-        <a [routerLink]="['/login']">Log In</a>
-      </li>
-
-      <!-- Mostrar botón de Logout solo si SÍ está autenticado -->
-      <li *ngIf="loginService.isAuthenticated()" class="nav-item log-in-btn">
-        <a (click)="loginService.logout()">Log Out</a>
-      </li>
     </ul>
+
+    <!-- Mobile menu toggle button -->
+    <div class="menu-toggle" (click)="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </nav>
 </header>
+
+<!-- Mobile navigation overlay -->
+<div class="mobile-nav-overlay" [class.active]="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
+
+<!-- Mobile navigation menu -->
+<div class="mobile-nav" [class.active]="isMobileMenuOpen">
+  <div class="mobile-nav-header">
+    <div class="logo-container">
+      <div class="logo"></div>
+    </div>
+    <button class="close-menu" (click)="closeMobileMenu()">&times;</button>
+  </div>
+
+  <ul class="mobile-nav-list">
+    <li class="mobile-nav-item"><a [routerLink]="['/home']" (click)="closeMobileMenu()">Home</a></li>
+    <li class="mobile-nav-item"><a [routerLink]="['/properties']" (click)="closeMobileMenu()">Properties</a></li>
+    <li class="mobile-nav-item"><a  [routerLink]="['/agents']" (click)="closeMobileMenu()">Agents</a></li>
+    <li class="mobile-nav-item">
+      <div class="mobile-log-in-btn">
+        <a *ngIf="!Validator" [routerLink]="['/login']" (click)="closeMobileMenu()">Log In</a>
+        <a *ngIf="Validator" [routerLink]="['/perfil']" (click)="closeMobileMenu()">Perfil</a>
+
+      </div>
+    </li>
+  </ul>
+</div>

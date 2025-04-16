@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2'; // Import SweetAlert2
 import { LoginService } from '../Service/login.service';
+import { PropertiesService } from '../Service/properties.service';
 
 @Component({
   selector: 'app-citys',
@@ -11,11 +12,13 @@ import { LoginService } from '../Service/login.service';
   styleUrl: './citys.component.css'
 })
 export class CitysComponent {
+
+  cards: any[] = []
   cityForm: FormGroup
-
   show: boolean = false
-  constructor(private fb: FormBuilder, public autentication: LoginService){
+  constructor(private fb: FormBuilder, public autentication: LoginService, private properties: PropertiesService){
 
+    this.cards = this.properties.getCitys()
     this.cityForm = this.fb.group({
       title: ['', Validators.required],
       text: ['', Validators.required],
@@ -26,12 +29,7 @@ export class CitysComponent {
   }
 
 
-  cards = [
-    { title: 'España', text: 'España es un país maravilloso conocido por su rica historia, arquitectura impresionante y una gastronomía excepcional como la paella y las tapas.', img: '501673-arenas-de-barcelona.webp' },
-    { title: 'U.S.A', text: 'Estados Unidos es una nación diversa y dinámica, famosa por su influencia cultural, tecnológica y paisajes icónicos como el Gran Cañón y la Estatua de la Libertad.', img: 'About_the_USA_NYC_Statue_Liberty_._CROP_Web72DPI.jpg' },
-    { title: 'Suiza', text: 'Suiza es conocida por sus paisajes alpinos, relojes de precisión, chocolates deliciosos y una calidad de vida envidiable.', img: 'K71TBD.webp' },
-    { title: 'Francia', text: 'Francia es sinónimo de elegancia, arte y romanticismo. Su capital, París, es mundialmente conocida por la Torre Eiffel, el Louvre y su exquisita cocina.', img: 'photo-1502602898657-3e91760cbb34.jpg' },
-  ];
+
 
 
   agregar(){
@@ -69,7 +67,7 @@ export class CitysComponent {
     this.show = false
   }
 
-  
+
 
 
 

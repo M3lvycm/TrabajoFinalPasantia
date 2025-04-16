@@ -6,6 +6,7 @@ import { LoginService } from '../Service/login.service';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FooterComponent } from "../footer/footer.component";
 import { Section4Component } from "../section-4/section-4.component";
+import { PropertiesService } from '../Service/properties.service';
 
 @Component({
   selector: 'app-agents',
@@ -16,13 +17,12 @@ import { Section4Component } from "../section-4/section-4.component";
 export class AgentsComponent {
   cityForm: FormGroup
   show: boolean = false
-
-  // Add these properties for the details modal
+  cards: any[] = [];
   showDetailsModal: boolean = false;
   selectedAgent: any = null;
 
-  constructor(private fb: FormBuilder, public autentication: LoginService){
-
+  constructor(private fb: FormBuilder, public autentication: LoginService, private  properties: PropertiesService ){
+    this.cards = properties.getAgents()
     this.cityForm = this.fb.group({
       title: ['', Validators.required],
       text: ['', Validators.required],
@@ -39,60 +39,6 @@ export class AgentsComponent {
   }
 
 
-  cards = [
-    {
-      title: 'Carlos Garcia',
-      text: 'Especialista en propiedades de lujo con 15 años de experiencia. Reconocido por su excelente servicio al cliente y conocimiento del mercado inmobiliario de alto nivel.',
-      img: 'Carlos.png',
-      age: '42',
-      specialty: 'Propiedades de lujo',
-      rating: '4.9',
-      properties: '78',
-      location: 'Madrid, España',
-      contact: '+34 612 345 678',
-      propertiesSold: '78',
-      qualification: 'Licenciado en Administración de Empresas'
-    },
-    {
-      title: 'María González',
-      text: 'Experta en bienes raíces residenciales con certificación en negociación avanzada. Ayuda a familias a encontrar el hogar perfecto con un enfoque personalizado.',
-      img: 'maria.jpg',
-      age: '35',
-      specialty: 'Residencial',
-      rating: '4.8',
-      properties: '124',
-      location: 'Barcelona, España',
-      contact: '+34 623 456 789',
-      propertiesSold: '124',
-      qualification: 'Máster en Marketing Inmobiliario'
-    },
-    {
-      title: 'Juan Pérez',
-      text: 'Asesor inmobiliario especializado en propiedades comerciales e inversiones. Con formación en finanzas, ofrece análisis detallados para maximizar el retorno de inversión.',
-      img: 'juan.avif',
-      age: '38',
-      specialty: 'Comercial',
-      rating: '4.7',
-      properties: '56',
-      location: 'Valencia, España',
-      contact: '+34 634 567 890',
-      propertiesSold: '56',
-      qualification: 'Licenciado en Economía'
-    },
-    {
-      title: 'Alma Gozo',
-      text: 'Consultora inmobiliaria con enfoque en desarrollo de proyectos y propiedades en zonas exclusivas. Conocida por su atención al detalle y servicio personalizado.',
-      img: 'Alma.jpg',
-      age: '40',
-      specialty: 'Desarrollo',
-      rating: '4.9',
-      properties: '92',
-      location: 'Sevilla, España',
-      contact: '+34 645 678 901',
-      propertiesSold: '92',
-      qualification: 'Arquitecta e Ingeniera Civil'
-    },
-  ];
 
 
   agregar(){
