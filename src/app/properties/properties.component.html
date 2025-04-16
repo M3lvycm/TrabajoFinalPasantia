@@ -1,15 +1,144 @@
 <app-navbar></app-navbar>
 
-<div class="agents-header text-center my-5">
-  <h2 class="display-4 fw-bold">Propiedades disponibles</h2>
-  <p class="lead text-muted">Propiedades en venta o alquiler en multiples partes del mundo</p>
-  <div class="header-divider mx-auto my-3"></div>
+<!-- New stylish header -->
+<div class="properties-header text-center">
+  <div class="container">
+    <h1>Propiedades Disponibles</h1>
+    <p>Descubre nuestra exclusiva selección de propiedades en venta o alquiler en las mejores ubicaciones del mundo</p>
+  </div>
 </div>
 
+<div class="container mb-5">
+  <!-- Enhanced filter section -->
+  <div class="filter-container">
+    <h3 class="filter-title"><i class="fas fa-search"></i>Encuentra tu propiedad ideal</h3>
 
+    <div class="filter-row">
+      <div class="filter-item">
+        <label for="cityFilter">Ciudad</label>
+        <select id="cityFilter" class="filter-select" [(ngModel)]="selectedCity" (change)="filterProperties()">
+          <option value="">Todas las ciudades</option>
+          <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+        </select>
+      </div>
 
-<app-house [house]="houses"></app-house>
+      <div class="filter-item">
+        <label for="bedroomsFilter">Habitaciones</label>
+        <select id="bedroomsFilter" class="filter-select" [(ngModel)]="selectedBedrooms" (change)="filterProperties()">
+          <option value="">Cualquier número</option>
+          <option value="1">1+ Habitaciones</option>
+          <option value="2">2+ Habitaciones</option>
+          <option value="3">3+ Habitaciones</option>
+          <option value="4">4+ Habitaciones</option>
+          <option value="5">5+ Habitaciones</option>
+        </select>
+      </div>
 
+      <div class="filter-item">
+        <label for="areaFilter">Área mínima (m²)</label>
+        <input type="number" id="areaFilter" class="filter-input" placeholder="Ej: 100" [(ngModel)]="minArea" (input)="filterProperties()">
+      </div>
+    </div>
 
-<app-section-4/>
+    <div class="filter-actions">
+      <button class="filter-reset" (click)="resetFilters()">
+        <i class="fas fa-redo-alt"></i> Reiniciar filtros
+      </button>
+    </div>
+  </div>
+
+  <!-- Property count indicator -->
+  <div class="property-count">
+    <i class="fas fa-home"></i> {{ filteredHouses.length }} propiedades encontradas
+  </div>
+
+  <!-- Properties grid using the house component style -->
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col" *ngFor="let house of filteredHouses; let i = index">
+      <div class="property-card card-item-{{i}}">
+        <div class="property-card-inner" (click)="showDetails(house)">
+          <div class="property-image">
+            <img [src]="house.img " >
+          </div>
+
+          <div class="property-content">
+            <h4 class="property-title">{{ house.title }}</h4>
+            <p class="property-location"><i class="fas fa-map-marker-alt me-1"></i> {{ house.city }}</p>
+
+            <div class="property-details">
+              <div class="detail-item">
+                <i class="fas fa-bed"></i>
+                <span>{{house.nH}} Habitaciones</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-ruler-combined"></i>
+                <span>{{house.mC}} m²</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-car"></i>
+                <span>{{house.nG}} Garajes</span>
+              </div>
+            </div>
+
+            <p class="property-description">{{ house.text }}</p>
+
+            <a class="btn btn-primary visit-btn" (click)="showDetails(house); $event.stopPropagation();">Detalles</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No results message -->
+  <div class="row mt-4" *ngIf="filteredHouses.length === 0">
+    <div class="col-12 text-center">
+      <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>No se encontraron propiedades con los filtros seleccionados.
+      </div>
+      <button class="btn btn-outline-primary mt-2" (click)="resetFilters()">Mostrar todas las propiedades</button>
+    </div>
+  </div>
+
+  <!-- Details Modal -->
+  <div class="modal-overlay" *ngIf="showDetailsModal">
+    <div class="modal-content details-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">{{ selectedHouse?.title }}</h3>
+        <button type="button" class="close-btn" (click)="closeDetails()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="details-image">
+          <img [src]="'assets/images/' + selectedHouse?.img" [alt]="selectedHouse?.title">
+        </div>
+
+        <div class="details-info">
+          <div class="details-section">
+            <h4>Ubicación</h4>
+            <p>{{ selectedHouse?.text }}</p>
+            <p><strong>Ciudad:</strong> {{ selectedHouse?.city }}</p>
+          </div>
+
+          <div class="details-section">
+            <h4>Características</h4>
+            <ul class="details-features">
+              <li><i class="fas fa-bed"></i> {{ selectedHouse?.nH }} Habitaciones</li>
+              <li><i class="fas fa-ruler-combined"></i> {{ selectedHouse?.mC }} m²</li>
+              <li><i class="fas fa-car"></i> {{ selectedHouse?.nG }} Garajes</li>
+            </ul>
+          </div>
+
+          <div class="details-section">
+            <h4>Descripción</h4>
+            <p>{{ selectedHouse?.text }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-purple" (click)="closeDetails()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-section-4></app-section-4>
 <app-footer></app-footer>
