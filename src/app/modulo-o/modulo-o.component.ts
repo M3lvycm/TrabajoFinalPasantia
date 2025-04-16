@@ -11,13 +11,5 @@ import { HouseComponent } from "../house/house.component";
   styleUrl: './modulo-o.component.css'
 })
 export class ModuloOComponent {
-citys: any[] = []
-house: any[] = []
-agents: any[] = []
-  constructor(private propertiesService: PropertiesService) {
-   this.house =  propertiesService.getHouses()
-   this.citys =  propertiesService.getCitys()
-   this.agents = propertiesService.getAgents()
 
-  }
 }
