@@ -1,4 +1,3 @@
-
 <app-navbar></app-navbar>
 <div class="dashboard-container">
   <app-sidebar></app-sidebar>
@@ -8,48 +7,42 @@
       <!-- Nuevo encabezado atractivo -->
       <div class="containerss agents-header text-center my-5">
         <h2 class="display-4 fw-bold">Agentes de Confianza</h2>
-        <p class="lead text-muted">Profesionales que te ayudarán a tomar la mejor decisión</p>
+        <p class="lead text-muted">
+          Profesionales que te ayudarán a tomar la mejor decisión
+        </p>
         <div class="header-divider"></div>
       </div>
 
       <div class="alingButton my-4 text-center">
-        <button id="citys" class="btn btn-outline-primary add-btn">
+        <button
+          id="citys"
+          class="btn btn-outline-primary add-btn"
+          (click)="showForm()"
+        >
           <i class="fas fa-plus-circle me-2"></i>Agregar agente
         </button>
       </div>
 
       <div class="containerss row justify-content-center g-4">
-        <!-- Example card (static) -->
-        <div class="col-md-5 col-lg-4 mx-2 offset-md-1">
+        <div
+          class="col-md-5 col-lg-4 mx-2 offset-md-1"
+          *ngFor="let agent of agents; let i = index"
+        >
           <div class="card h-100 shadow-sm card-item-0">
-            <img src="assets/images/agent1.jpg" class="card-img-top" alt="Agente">
+            <img [src]="agent.img" class="card-img-top" alt="Agente" />
             <div class="card-body">
-              <h5 class="card-title">Juan Pérez</h5>
+              <h5 class="card-title">{{ agent.title }}</h5>
               <div class="card-actions">
-                <button class="btn-purple inView">Detalles</button>
-                <button class="btn-purple-edit inView">
+                <button class="btn-purple inView" (click)="showModal(agent)">
+                  Detalles
+                </button>
+                <button class="btn-purple-edit inView" (click)="editAgent(i)">
                   <i class="fas fa-edit me-1"></i> Editar
                 </button>
-                <button class="btn-purple-danger inView">
-                  <i class="fas fa-trash me-1"></i> Eliminar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Second example card -->
-        <div class="col-md-5 col-lg-4 mx-2 offset-md-1">
-          <div class="card h-100 shadow-sm card-item-1">
-            <img src="assets/images/agent2.jpg" class="card-img-top" alt="Agente">
-            <div class="card-body">
-              <h5 class="card-title">María López</h5>
-              <div class="card-actions">
-                <button class="btn-purple inView">Detalles</button>
-                <button class="btn-purple-edit inView">
-                  <i class="fas fa-edit me-1"></i> Editar
-                </button>
-                <button class="btn-purple-danger inView">
+                <button
+                  class="btn-purple-danger inView"
+                  (click)="deleteAgent(i)"
+                >
                   <i class="fas fa-trash me-1"></i> Eliminar
                 </button>
               </div>
@@ -62,70 +55,136 @@
 </div>
 
 <!-- Modal form with blur background -->
-<div id="citys" class="modal-overlay" style="display: none;">
+<div id="citys" class="modal-overlay" *ngIf="show">
   <div class="modal-content">
     <h3 class="form-title">Agregar Nuevo Agente</h3>
     <div class="form-container">
-      <form>
+      <form [formGroup]="form" (ngSubmit)="addAgent()">
         <div class="form-group">
           <label for="img">Imagen</label>
-          <input type="file" id="img" class="form-control" placeholder="Ingrese la URL de la imagen">
+          <input
+            type="file"
+            id="img"
+            class="form-control"
+            accept="image/*"
+            (change)="onImageChange($event)"
+          />
+          <div class="image-preview mt-3" *ngIf="form.get('img')?.value">
+            <img
+              [src]="form.get('img')?.value"
+              alt="Vista previa"
+              class="img-thumbnail shadow-sm"
+            />
+          </div>
         </div>
 
         <div class="form-group">
           <label for="title">Nombre</label>
-          <input id="title" class="form-control" placeholder="Ingrese el nombre del agente">
+          <input
+            id="title"
+            class="form-control"
+            placeholder="Ingrese el nombre del agente"
+            formControlName="title"
+          />
         </div>
 
         <div class="form-group">
           <label for="text">Descripción</label>
-          <textarea id="text" class="form-control" rows="3" placeholder="Ingrese la descripción profesional"></textarea>
+          <textarea
+            id="text"
+            class="form-control"
+            rows="3"
+            placeholder="Ingrese la descripción profesional"
+            formControlName="text"
+          ></textarea>
         </div>
 
         <div class="form-group">
           <label for="city">Ciudad</label>
-          <input id="city" class="form-control" placeholder="Ingrese la ciudad">
+          <input
+            id="city"
+            class="form-control"
+            placeholder="Ingrese la ciudad"
+            formControlName="city"
+          />
         </div>
 
         <!-- Nuevos campos -->
         <div class="form-group">
           <label for="age">Edad</label>
-          <input id="age" class="form-control" placeholder="Ingrese la edad">
+          <input
+            id="age"
+            class="form-control"
+            placeholder="Ingrese la edad"
+            formControlName="age"
+          />
         </div>
 
         <div class="form-group">
           <label for="specialty">Especialidad</label>
-          <input id="specialty" class="form-control" placeholder="Ingrese la especialidad">
+          <input
+            id="specialty"
+            class="form-control"
+            placeholder="Ingrese la especialidad"
+            formControlName="speciality"
+          />
         </div>
 
         <div class="form-group">
           <label for="rating">Calificación</label>
-          <input id="rating" class="form-control" placeholder="Ingrese la calificación (ej: 4.8)">
+          <input
+            id="rating"
+            class="form-control"
+            placeholder="Ingrese la calificación (ej: 4.8)"
+            formControlName="rating"
+          />
         </div>
 
         <div class="form-group">
           <label for="properties">Propiedades vendidas</label>
-          <input id="properties" class="form-control" placeholder="Ingrese el número de propiedades vendidas">
+          <input
+            id="properties"
+            class="form-control"
+            placeholder="Ingrese el número de propiedades vendidas"
+            formControlName="properties"
+          />
         </div>
 
         <div class="form-group">
           <label for="location">Ubicación</label>
-          <input id="location" class="form-control" placeholder="Ingrese la ubicación detallada">
+          <input
+            id="location"
+            class="form-control"
+            placeholder="Ingrese la ubicación detallada"
+            formControlName="location"
+          />
         </div>
 
         <div class="form-group">
           <label for="contact">Contacto</label>
-          <input id="contact" class="form-control" placeholder="Ingrese el número de contacto">
+          <input
+            id="contact"
+            class="form-control"
+            placeholder="Ingrese el número de contacto"
+            formControlName="contact"
+          />
         </div>
 
         <div class="form-group">
           <label for="qualification">Formación</label>
-          <input id="qualification" class="form-control" placeholder="Ingrese la formación académica">
+          <input
+            id="qualification"
+            class="form-control"
+            placeholder="Ingrese la formación académica"
+            formControlName="qualification"
+          />
         </div>
 
         <div class="form-actions">
-          <button type="button" class="btn btn-cancel">Cancelar</button>
-          <button type="button" class="btn btn-submit">Agregar</button>
+          <button type="button" class="btn btn-cancel" (click)="showForm()">Cancelar</button>
+          <button type="submit" class="btn btn-submit" [disabled]="!form.valid">
+            {{ isEditing ? "Actualizar" : "Agregar" }}
+          </button>
         </div>
       </form>
     </div>
@@ -133,46 +192,50 @@
 </div>
 
 <!-- Details modal -->
-<div class="modal-overlay" style="display: none;">
+<div class="modal-overlay" *ngIf="showDetailsModal">
   <div class="modal-content details-modal">
     <div class="modal-header">
-      <h3 class="modal-title">Nombre del Agente</h3>
+      <h3 class="modal-title">{{ selectedAgent.title }}</h3>
       <button type="button" class="close-btn">&times;</button>
     </div>
     <div class="modal-body">
       <div class="details-image">
-        <img src="assets/images/agent1.jpg" alt="Agente">
+        <img [src]="selectedAgent.img" [alt]="selectedAgent.title" />
       </div>
 
       <div class="details-info">
         <div class="details-section">
           <h4>Perfil profesional</h4>
-          <p>Descripción profesional del agente inmobiliario con amplia experiencia en el sector.</p>
-          <p><strong>Edad:</strong> 35 años</p>
-          <p><strong>Ubicación:</strong> Ciudad de México</p>
-          <p><strong>Formacion:</strong> Licenciatura en Administración de Empresas</p>
+          <p>
+            {{ selectedAgent.text }}
+          </p>
+          <p><strong>Edad:</strong>{{ selectedAgent.age }}</p>
+          <p><strong>Ubicación:</strong> {{ selectedAgent.location }}</p>
+          <p><strong>Formacion:</strong> {{ selectedAgent.qualification }}</p>
         </div>
 
         <div class="details-section">
           <h4>Estadísticas</h4>
           <ul class="details-features">
-            <li><i class="fas fa-star"></i> 4.8 de calificación</li>
-            <li><i class="fas fa-award"></i> Propiedades residenciales</li>
-            <li><i class="fas fa-home"></i> 45 propiedades vendidas</li>
+            <li><i class="fas fa-star"></i> {{ selectedAgent.rating }}</li>
+            <li><i class="fas fa-award"></i> {{ selectedAgent.specialty }}</li>
+            <li>
+              <i class="fas fa-home"></i>
+              {{ selectedAgent.properties }} propiedades vendidas
+            </li>
           </ul>
         </div>
 
         <div class="details-section">
           <h4>Contacto</h4>
-          <p><i class="fas fa-phone"></i> +52 555 123 4567</p>
+          <p><i class="fas fa-phone"></i> {{ selectedAgent.contact }}</p>
         </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn-purple">Cerrar</button>
+      <button type="button" class="btn-purple" (click)="closeModal()">
+        Cerrar
+      </button>
     </div>
   </div>
 </div>
-
-
-
