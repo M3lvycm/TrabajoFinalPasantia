@@ -91,18 +91,23 @@ export class DashboardComponent {
   imagePreview: string | ArrayBuffer | null = null;
 
   // Add this method to your component class
-  onFileSelected(event: any) {
+  // Update your onFileSelected method
+  onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      // Update the form control with the file name
-      this.houseForm.patchValue({
-        img: file.name
-      });
-
-      // Create a preview
+      // Create a FileReader to read the image as a data URL
       const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = reader.result;
+      reader.onload = (e: any) => {
+        // Set the preview image
+        this.imagePreview = e.target.result;
+
+        // Store the image data in the form
+        this.houseForm.patchValue({
+          img: e.target.result
+        });
+
+        // Mark the form control as touched to trigger validation
+        this.houseForm.get('img')?.markAsTouched();
       };
       reader.readAsDataURL(file);
     }
