@@ -11,7 +11,9 @@
               <i class="fas fa-user-tie me-2"></i>
               Gestión de Agentes
             </h2>
-            <p class="text-muted mb-4">Administra los agentes inmobiliarios de nuestra plataforma</p>
+            <p class="text-muted mb-4">
+              Administra los agentes inmobiliarios de nuestra plataforma
+            </p>
             <div class="city-stats mb-4">
               <div class="badge bg-primary rounded-pill px-4 py-2 fs-6">
                 <i class="fas fa-users me-2"></i> Agentes Disponibles
@@ -23,23 +25,23 @@
 
       <div class="container mt-4 mb-5">
         <div class="alingButton my-4">
-          <button id="citys" class="btn btn-outline-primary add-btn" >
+          <button id="citys" class="btn btn-outline-primary add-btn" (click)="showForm()">
             <i class="fas fa-plus-circle me-2"></i>Agregar agente
           </button>
         </div>
 
         <div class="row g-4">
-          <div class="col-md-3">
+          <div class="col-md-3" *ngFor="let city of cities; let i = index">
             <div class="card h-100 shadow-sm card-item">
-              <img  class="card-img-top" >
+              <img class="card-img-top" [src]="city.img"/>
               <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text"></p>
+                <h5 class="card-title">{{city.title}}</h5>
+                <p class="card-text">{{city.text}}</p>
                 <div class="card-actions">
-                  <button class="btn btn-outline-primary add-btn inView" >
+                  <button class="btn btn-outline-primary add-btn inView" (click)="editCity(i)">
                     <i class="fas fa-edit me-1"></i> Editar
                   </button>
-                  <button class="btn btn-outline-danger add-btn-danger inView">
+                  <button class="btn btn-outline-danger add-btn-danger inView" (click)="deleteCity(i)">
                     <i class="fas fa-trash me-1"></i> Eliminar
                   </button>
                 </div>
@@ -52,57 +54,58 @@
   </div>
 </div>
 
-
-
-
-// FORMULARIO DE AGREGAR CIUDADES //
-<!--
-Single modal form with blur background
-<div id="citys" class="modal-overlay">
+<!-- Single modal form with blur background -->
+<div id="citys" class="modal-overlay" *ngIf="show">
   <div class="modal-content">
     <h3 class="form-title">
       <i class="fas 'fa-plus-circle' : 'fa-edit'"></i>
+    </h3>
 
-    </h3> -->
-
-
-
-
-
-    <!-- <form>
+    <form [formGroup]="form" (ngSubmit)="addCity()">
       <div class="form-group">
         <label for="img">Foto del agente</label>
-        <input type="file" id="img" class="form-control"  accept="image/*">
-        <input type="hidden" formControlName="img">
-        <div class="image-preview mt-3">
-          <img alt="Vista previa" class="img-thumbnail shadow-sm">
+        <input type="file" id="img" class="form-control" accept="image/*" (change)="onImageChange($event)"/>
+        <input type="hidden" formControlName="img" />
+        <div class="image-preview mt-3" *ngIf="form.get('img')?.value">
+          <img alt="Vista previa" class="img-thumbnail shadow-sm" [src]="form.get('img')?.value" />
         </div>
       </div>
 
       <div class="form-group">
         <label for="title">Nombre</label>
-        <input id="title" class="form-control" formControlName="title" placeholder="Ingrese el nombre">
+        <input
+          id="title"
+          class="form-control"
+          formControlName="title"
+          placeholder="Ingrese el nombre"
+        />
       </div>
 
       <div class="form-group">
         <label for="text">Descripción</label>
-        <textarea id="text" class="form-control" formControlName="text" rows="3" placeholder="Ingrese la descripción"></textarea>
+        <textarea
+          id="text"
+          class="form-control"
+          formControlName="text"
+          rows="3"
+          placeholder="Ingrese la descripción"
+        ></textarea>
       </div>
 
       <div class="form-group">
         <label for="city">Especialidad</label>
-        <input id="city" class="form-control" formControlName="city" placeholder="Ingrese la especialidad">
+        <input
+          id="city"
+          class="form-control"
+          formControlName="city"
+          placeholder="Ingrese la especialidad"
+        />
       </div>
 
       <div class="form-actions">
-        <button type="button" class="btn-cancel" >Cancelar</button>
-        <button type="button" class="btn-submit" >
-
-        </button>
+        <button type="button" class="btn-cancel" (click)="showForm()">Cancelar</button>
+        <button type="button" class="btn-submit" (click)="addCity()" [disabled]="!form.valid">{{ isEditing ? 'Actualizar' : 'Agregar'}}</button>
       </div>
-    </form> -->
-  <!-- </div>
-</div> -->
-
-
-
+    </form>
+  </div>
+</div>
