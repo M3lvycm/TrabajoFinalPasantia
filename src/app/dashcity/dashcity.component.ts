@@ -20,15 +20,15 @@ export class DashcityComponent {
   editIndex: number = -1; // Add this to track which city is being edited
 
   constructor(private properties: PropertiesService, private fb: FormBuilder) {
-    
+
     this.citys = properties.getCitys()
     this.cityForm = this.fb.group({
       title: ['', Validators.required],
       text: ['', Validators.required],
       city: ['', Validators.required],
       img: ['', Validators.required]
-  
-  
+
+
 
   })
 
@@ -44,7 +44,7 @@ agregar() {
     if (this.editIndex === -1) {
       // Adding new city
       this.citys.push(this.cityForm.value);
-      
+
       Swal.fire({
         title: '¡Éxito!',
         text: 'La ciudad se agregó correctamente',
@@ -54,17 +54,17 @@ agregar() {
     } else {
       // Updating existing city
       this.citys[this.editIndex] = this.cityForm.value;
-      
+
       Swal.fire({
         title: '¡Actualizado!',
         text: 'La ciudad se actualizó correctamente',
         icon: 'success',
         confirmButtonColor: '#591b95'
       });
-      
+
       this.editIndex = -1; // Reset edit index
     }
-    
+
     this.cityForm.reset();
     this.show = false;
   } else {
@@ -91,7 +91,7 @@ close(){
 editCity(index: number) {
   this.editIndex = index;
   const city = this.citys[index];
-  
+
   // Populate form with city data
   this.cityForm.patchValue({
     title: city.title,
@@ -99,7 +99,7 @@ editCity(index: number) {
     city: city.city,
     img: city.img
   });
-  
+
   this.show = true;
 }
 
@@ -119,7 +119,7 @@ onFileSelected(event: any) {
     this.cityForm.patchValue({
       img: file
     });
-    
+
     // Create a preview
     const reader = new FileReader();
     reader.onload = () => {

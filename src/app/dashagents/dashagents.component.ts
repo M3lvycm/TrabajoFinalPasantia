@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { NavbarComponent } from "../navbar/navbar.component";
 import { LoginService } from '../Service/login.service';
+import { AgentsComponent } from "../agents/agents.component";
 
 @Component({
   selector: 'app-dashagents',
-  imports: [ReactiveFormsModule, CommonModule, SidebarComponent, NavbarComponent],
+  imports: [ReactiveFormsModule, CommonModule, SidebarComponent, NavbarComponent, AgentsComponent],
   templateUrl: './dashagents.component.html',
   styleUrl: './dashagents.component.css'
 })
@@ -44,19 +45,19 @@ export class DashagentsComponent {
       if (this.editIndex >= 0) {
         // Update existing agent
         this.cards[this.editIndex] = this.cityForm.value;
-        
+
         Swal.fire({
           title: '¡Actualizado!',
           text: 'El agente se actualizó correctamente',
           icon: 'success',
           confirmButtonColor: '#591b95'
         });
-        
+
         this.editIndex = -1;
       } else {
         // Add new agent
         this.cards.push(this.cityForm.value);
-        
+
         Swal.fire({
           title: '¡Éxito!',
           text: 'El agente se agregó correctamente',
@@ -64,7 +65,7 @@ export class DashagentsComponent {
           confirmButtonColor: '#591b95'
         });
       }
-      
+
       this.cityForm.reset();
       this.show = false;
       this.imagePreview = null;
@@ -153,7 +154,7 @@ export class DashagentsComponent {
     this.show = true;
     this.editIndex = index;
     const agent = this.cards[index];
-    
+
     // Populate the form with the agent's data
     this.cityForm.patchValue({
       title: agent.title,
@@ -168,11 +169,11 @@ export class DashagentsComponent {
       contact: agent.contact,
       qualification: agent.qualification
     });
-    
+
     // Set image preview if available
     this.imagePreview = agent.img;
   }
-  
+
   deleteAgent(index: number) {
     // Use SweetAlert instead of confirm for consistency
     Swal.fire({
