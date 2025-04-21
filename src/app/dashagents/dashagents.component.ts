@@ -1,214 +1,117 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import Swal from 'sweetalert2';
 import { PropertiesService } from '../Service/properties.service';
 import { CommonModule } from '@angular/common';
-import { SidebarComponent } from "../sidebar/sidebar.component";
-import { NavbarComponent } from "../navbar/navbar.component";
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { LoginService } from '../Service/login.service';
 
 @Component({
   selector: 'app-dashagents',
-  imports: [ReactiveFormsModule, CommonModule, SidebarComponent, NavbarComponent],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    SidebarComponent,
+    NavbarComponent,
+  ],
   templateUrl: './dashagents.component.html',
-  styleUrl: './dashagents.component.css'
+  styleUrl: './dashagents.component.css',
 })
 export class DashagentsComponent {
-  cityForm: FormGroup;
-  show: boolean = false;
-  cards: any[] = [];
+  agents: any[] = [];
   showDetailsModal: boolean = false;
+  show: boolean = false;
   selectedAgent: any = null;
-  editIndex: number = -1;
-  imagePreview: string | null = null;
+  form: FormGroup;
+  isEditing: boolean = false;
+  editingIndex: number = -1;
 
-  constructor(private fb: FormBuilder, public autentication: LoginService, private properties: PropertiesService) {
-    this.cards = properties.getAgents();
-    this.cityForm = this.fb.group({
+  constructor(private prop: PropertiesService, private fb: FormBuilder) {
+    this.agents = this.prop.agents;
+    this.form = this.fb.group({
       title: ['', Validators.required],
       text: ['', Validators.required],
-      city: ['', Validators.required],
+      city: [''],
       img: ['', Validators.required],
       age: ['', Validators.required],
-      specialty: ['', Validators.required],
+      speciality: [''],
       rating: ['', Validators.required],
       properties: ['', Validators.required],
       location: ['', Validators.required],
       contact: ['', Validators.required],
-      qualification: ['', Validators.required]
+      qualification: ['', Validators.required],
     });
   }
 
-  agregar() {
-    if (this.cityForm.valid) {
-      if (this.editIndex >= 0) {
-        // Update existing agent
-        this.cards[this.editIndex] = this.cityForm.value;
-        
-        Swal.fire({
-          title: '¡Actualizado!',
-          text: 'El agente se actualizó correctamente',
-          icon: 'success',
-          confirmButtonColor: '#591b95'
-        });
-        
-        this.editIndex = -1;
-      } else {
-        // Add new agent
-        this.cards.push(this.cityForm.value);
-        
-        Swal.fire({
-          title: '¡Éxito!',
-          text: 'El agente se agregó correctamente',
-          icon: 'success',
-          confirmButtonColor: '#591b95'
-        });
-      }
-      
-      this.cityForm.reset();
-      this.show = false;
-      this.imagePreview = null;
-    } else {
-      // Form is invalid, show error message
-      Swal.fire({
-        title: 'Error',
-        text: 'Por favor, llene todos los campos',
-        icon: 'error',
-        confirmButtonColor: '#591b95'
-      });
-    }
+  closeModal() {
+    this.showDetailsModal = !this.showDetailsModal;
   }
 
-  mostrarFormulario() {
-    this.show = true;
-    this.editIndex = -1;
-    this.cityForm.reset();
-    this.imagePreview = null;
+  showForm() {
+    this.show = !this.show;
+    this.form.reset();
   }
 
-  close() {
-    this.show = false;
-    this.editIndex = -1;
-    this.cityForm.reset();
-    this.imagePreview = null;
-  }
-
-  delete(index?: number) {
-    if (index !== undefined) {
-      // Remove specific card with animation
-      Swal.fire({
-        title: '¿Estás seguro?',
-        text: "Esta acción no se puede revertir",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#591b95',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Add animation class to the card before removing
-          const cardElement = document.querySelector(`.card-item-${index}`);
-          if (cardElement) {
-            cardElement.classList.add('card-delete-animation');
-
-            // Wait for animation to complete before removing from array
-            setTimeout(() => {
-              this.cards.splice(index, 1);
-              Swal.fire(
-                '¡Eliminado!',
-                'El agente ha sido eliminado.',
-                'success'
-              );
-            }, 500); // Match this with your animation duration
-          }
-        }
-      });
-    } else {
-      // Remove last card with animation
-      const lastIndex = this.cards.length - 1;
-      const cardElement = document.querySelector(`.card-item-${lastIndex}`);
-
-      if (cardElement) {
-        cardElement.classList.add('card-delete-animation');
-
-        setTimeout(() => {
-          this.cards.pop();
-        }, 500);
-      }
-    }
-  }
-
-  // Add these methods for the details modal
-  showDetails(agent: any) {
+  showModal(agent: any) {
     this.selectedAgent = agent;
-    this.showDetailsModal = true;
+    this.closeModal();
   }
 
-  closeDetails() {
-    this.showDetailsModal = false;
+  addAgent() {
+    if (this.form.valid) {
+      if (this.isEditing) {
+        this.agents[this.editingIndex] = this.form.value;
+        this.isEditing = false;
+        this.editingIndex = -1;
+      } else {
+        this.agents.push(this.form.value);
+      }
+      this.form.reset();
+      this.showForm();
+    }
   }
 
-  editAgent(index: number) {
-    this.show = true;
-    this.editIndex = index;
-    const agent = this.cards[index];
-    
-    // Populate the form with the agent's data
-    this.cityForm.patchValue({
+  onImageChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.form.patchValue({
+          img: e.target.result,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  deleteAgent(i: number) {
+    this.agents.splice(i, 1);
+  }
+
+  editAgent(i: number) {
+    this.isEditing = true;
+    this.showForm();
+    this.editingIndex = i;
+    const agent = this.agents[i];
+
+    this.form.patchValue({
       title: agent.title,
       text: agent.text,
       city: agent.city,
-      img: '',  // Can't set file input value for security reasons
+      img: agent.img,
       age: agent.age,
-      specialty: agent.specialty,
+      speciality: agent.speciality,
       rating: agent.rating,
       properties: agent.properties,
       location: agent.location,
       contact: agent.contact,
-      qualification: agent.qualification
-    });
-    
-    // Set image preview if available
-    this.imagePreview = agent.img;
-  }
-  
-  deleteAgent(index: number) {
-    // Use SweetAlert instead of confirm for consistency
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "Esta acción no se puede revertir",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#591b95',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Add animation class to the card before removing
-        const cardElement = document.querySelector(`.card-item-${index}`);
-        if (cardElement) {
-          cardElement.classList.add('card-delete-animation');
-
-          // Wait for animation to complete before removing from array
-          setTimeout(() => {
-            this.cards.splice(index, 1);
-            Swal.fire(
-              '¡Eliminado!',
-              'El agente ha sido eliminado.',
-              'success'
-            );
-          }, 500);
-        } else {
-          this.cards.splice(index, 1);
-          Swal.fire(
-            '¡Eliminado!',
-            'El agente ha sido eliminado.',
-            'success'
-          );
-        }
-      }
+      qualification: agent.qualification,
     });
   }
 }

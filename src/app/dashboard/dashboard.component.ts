@@ -16,96 +16,81 @@ import { SidebarComponent } from "../sidebar/sidebar.component";
   imports: [NavbarComponent, ReactiveFormsModule, CommonModule, FilterPipe, FormsModule, RouterModule, SidebarComponent]
 })
 export class DashboardComponent {
+  form: FormGroup;
   houses: any[] = [];
-  houseForm: FormGroup;
-  editIndex: number = -1;
+  imagePreview: string | null = null;
+  isEditing: boolean = false;
+  editingIndex: number = -1;
 
-  // Add this property
-
-  constructor(
-    private propertiesService: PropertiesService,
-    private fb: FormBuilder
-  ) {
-    this.houses = this.propertiesService.getHouses();
-
-    this.houseForm = this.fb.group({
+  constructor (private prop : PropertiesService, private fb: FormBuilder) { 
+    this.houses = this.prop.houses
+    this.form = this.fb.group({
+      img: ['',],
       title: ['', Validators.required],
-      text: ['', Validators.required],
-      img: ['', Validators.required],
+      city: ['', Validators.required],
+      descrip: ['', Validators.required],
       nH: ['', Validators.required],
       mC: ['', Validators.required],
       nG: ['', Validators.required],
-      city: ['', Validators.required]
     });
   }
 
-  // Método para agregar una nueva propiedad
-  addHouse() {
-    if (this.houseForm.valid) {
-      if (this.editIndex === -1) {
-        // Agregar nueva propiedad
-        this.propertiesService.addHouse(this.houseForm.value);
-      } else {
-        // Actualizar propiedad existente
-        this.propertiesService.updateHouse(this.editIndex, this.houseForm.value);
-        this.editIndex = -1;
-      }
-
-      // Actualizar la lista local
-      this.houses = this.propertiesService.getHouses();
-
-      // Resetear el formulario
-      this.houseForm.reset();
-    }
-  }
-
-  // Método para editar una propiedad existente
-  editHouse(index: number) {
-    const house = this.houses[index];
-    this.houseForm.setValue({
-      title: house.title,
-      text: house.text,
-      img: house.img,
-      nH: house.nH,
-      mC: house.mC,
-      nG: house.nG,
-      city: house.city
-    });
-    this.editIndex = index;
-  }
-
-  // Método para eliminar una propiedad
-  deleteHouse(index: number) {
-    this.propertiesService.deleteHouse(index);
-    this.houses = this.propertiesService.getHouses();
-  }
-
-  // Método para cancelar la edición
-  cancelEdit() {
-    this.houseForm.reset();
-    this.editIndex = -1;
-  }
-
-  // Add these properties to your component class
-  searchTerm: string = '';
-  imagePreview: string | ArrayBuffer | null = null;
-
-  // Add this method to your component class
-  onFileSelected(event: any) {
+  //Funcion para mostrar la imagen de la casa en el formulario
+  onImageChange(event: any) {
     const file = event.target.files[0];
     if (file) {
-      // Update the form control with the file name
-      this.houseForm.patchValue({
-        img: file.name
-      });
-
-      // Create a preview
       const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = reader.result;
+      reader.onload = (e: any) => {
+        this.imagePreview = e.target.result;
+        this.form.patchValue({
+          img: e.target.result
+        });
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  addHouse() {
+    if (this.form.valid) {
+      if (this.isEditing) {
+        this.prop.updateHouse(this.editingIndex, this.form.value);
+        this.isEditing = false;
+        this.editingIndex = -1;
+      } else {
+        this.prop.addHouse(this.form.value);
+      }
+      this.form.reset();
+      this.imagePreview = null;
+    }
+  }
+
+  deleteHouse(i:number) {
+    this.prop.deleteHouse(i)
+  }
+
+  editHouses(i: number) {
+    this.isEditing = true;
+    this.editingIndex = i;
+    const house = this.houses[i];
+  
+    this.form.setValue({
+      img: house.img,
+      title: house.title,
+      city: house.city,
+      descrip: house.descrip,
+      nH: house.nH,
+      mC: house.mC,
+      nG: house.nG
+    });
+    
+    this.imagePreview = house.img;
+  }
+
+  cancelEdit() {
+    this.isEditing = false;
+    this.editingIndex = -1;
+    this.form.reset();
+    this.imagePreview = null;
   }
 
 
