@@ -12,6 +12,7 @@
 
 .inView{
   opacity: 0%;
+  
 }
 
 .card:hover .inView{
