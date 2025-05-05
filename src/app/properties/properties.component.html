@@ -56,33 +56,40 @@
   <div class="row row-cols-1 row-cols-md-2 g-4">
     <div class="col" *ngFor="let house of filteredHouses; let i = index">
       <div class="property-card card-item-{{i}}">
-        <div class="property-card-inner" (click)="showDetails(house)">
-          <div class="property-image">
-            <img [src]="house.img " >
+        <div class="property-card-inner">
+          <div class="property-image" (click)="showDetails(house)">
+            <img [src]="house.imagen" alt="{{house.titulo}}" onerror="this.src='assets/images/placeholder-house.jpg'">
+            <div class="property-badge" *ngIf="house.amueblado === true">
+              <span class="badge bg-success"><i class="fas fa-couch me-1"></i>Amueblado</span>
+            </div>
           </div>
 
           <div class="property-content">
-            <h4 class="property-title">{{ house.title }}</h4>
-            <p class="property-location"><i class="fas fa-map-marker-alt me-1"></i> {{ house.city }}</p>
+            <h4 class="property-title text-truncate">{{ house.titulo }}</h4>
+            <p class="property-location text-truncate"><i class="fas fa-map-marker-alt me-1"></i> {{ house.ciudad }}</p>
 
             <div class="property-details">
               <div class="detail-item">
                 <i class="fas fa-bed"></i>
-                <span>{{house.nH}} Habitaciones</span>
+                <span>{{house.habitaciones}}</span>
               </div>
               <div class="detail-item">
                 <i class="fas fa-ruler-combined"></i>
-                <span>{{house.mC}} m²</span>
+                <span>{{house.metrosCuadrados}}m²</span>
               </div>
               <div class="detail-item">
                 <i class="fas fa-car"></i>
-                <span>{{house.nG}} Garajes</span>
+                <span>{{house.garajes}}</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-bath"></i>
+                <span>{{house.banos}}</span>
               </div>
             </div>
 
-            <p class="property-description">{{ house.text }}</p>
+            <p class="property-description">{{ house.descripcion | slice:0:100 }}{{ house.descripcion.length > 100 ? '...' : '' }}</p>
 
-            <a class="btn btn-primary visit-btn" (click)="showDetails(house); $event.stopPropagation();">Detalles</a>
+            <a class="btn btn-primary visit-btn w-100" (click)="showDetails(house)">Ver Detalles</a>
           </div>
         </div>
       </div>
@@ -108,7 +115,7 @@
       </div>
       <div class="modal-body">
         <div class="details-image">
-          <img [src]= selectedHouse?.img >
+          <img [src]="selectedHouse?.img">
         </div>
 
         <div class="details-info">

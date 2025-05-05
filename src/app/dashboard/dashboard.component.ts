@@ -1,117 +1,159 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PropertiesService } from '../Service/properties.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NavbarComponent } from "../navbar/navbar.component";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 import { FilterPipe } from '../pipes/filter.pipe';
-import { FormsModule } from '@angular/forms';
-import { routes } from '../app.routes';
-import { Router, RouterModule } from '@angular/router';
-import { SidebarComponent } from "../sidebar/sidebar.component";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  imports: [NavbarComponent, ReactiveFormsModule, CommonModule, FilterPipe, FormsModule, RouterModule, SidebarComponent]
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule, FilterPipe, FormsModule, SidebarComponent]
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   houses: any[] = [];
   houseForm: FormGroup;
   editIndex: number = -1;
-
-  // Add this property
+  editId: string = '';
+  searchTerm: string = '';
+  imagePreview: string | ArrayBuffer | null = null;
+  isLoading: boolean = false;
 
   constructor(
     private propertiesService: PropertiesService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
-    this.houses = this.propertiesService.getHouses();
-
     this.houseForm = this.fb.group({
-      title: ['', Validators.required],
-      text: ['', Validators.required],
-      img: ['', Validators.required],
-      nH: ['', Validators.required],
-      mC: ['', Validators.required],
-      nG: ['', Validators.required],
-      city: ['', Validators.required]
+      titulo: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      imagen: ['', Validators.required],
+      banos: [0, [Validators.required, Validators.min(0)]],
+      habitaciones: [0, [Validators.required, Validators.min(0)]],
+      garajes: [0, [Validators.required, Validators.min(0)]],
+      amueblado: [false, Validators.required],
+      ciudad: ['', Validators.required],
+      metrosCuadrados: [0, [Validators.required, Validators.min(0)]],
+      createdAt: [''],
+      updatedAt: ['']
     });
   }
 
-  // Método para agregar una nueva propiedad
-  addHouse() {
-    if (this.houseForm.valid) {
-      if (this.editIndex === -1) {
-        // Agregar nueva propiedad
-        this.propertiesService.addHouse(this.houseForm.value);
-      } else {
-        // Actualizar propiedad existente
-        this.propertiesService.updateHouse(this.editIndex, this.houseForm.value);
-        this.editIndex = -1;
+  ngOnInit(): void {
+    this.fetchProperty();
+  }
+
+  fetchProperty(): void {
+    this.isLoading = true;
+    this.propertiesService.getPropertys().subscribe(
+      (data) => {
+        this.houses = data;
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching properties:', error);
+        this.isLoading = false;
       }
+    );
+  }
 
-      // Actualizar la lista local
-      this.houses = this.propertiesService.getHouses();
+  addOrUpdateHouse(): void {
+    if (this.houseForm.invalid) return;
 
-      // Resetear el formulario
-      this.houseForm.reset();
+    const currentTime = new Date().toISOString();
+    this.houseForm.patchValue({ updatedAt: currentTime });
+
+    if (this.editIndex === -1) {
+      // Agregar nueva propiedad
+      this.houseForm.patchValue({ createdAt: currentTime });
+      this.propertiesService.postPropertys(this.houseForm.value).subscribe(
+        (response) => {
+          this.houses.push(response);
+          this.houseForm.reset();
+          this.imagePreview = null;
+          this.fetchProperty();
+        },
+        (error) => console.error('Error al agregar la propiedad:', error)
+      );
+    } else {
+      // Editar propiedad existente
+      const updatedHouse = this.houseForm.value;
+      const id = this.editId;
+
+      this.propertiesService.updateProperty(id, updatedHouse).subscribe(
+        (response) => {
+          this.fetchProperty();
+          this.houseForm.reset();
+          this.imagePreview = null;
+          this.editIndex = -1;
+          this.editId = '';
+        },
+        (error) => console.error('Error al actualizar la propiedad:', error)
+      );
     }
   }
 
-  // Método para editar una propiedad existente
-  editHouse(index: number) {
+  editHouse(index: number): void {
     const house = this.houses[index];
-    this.houseForm.setValue({
-      title: house.title,
-      text: house.text,
-      img: house.img,
-      nH: house.nH,
-      mC: house.mC,
-      nG: house.nG,
-      city: house.city
-    });
     this.editIndex = index;
+    this.editId = house._id || house.id; // Asegúrate de usar el campo correcto de tu backend
+
+    this.houseForm.patchValue({
+      titulo: house.titulo || house.title,
+      descripcion: house.descripcion || house.text,
+      imagen: house.imagen || house.img,
+      banos: house.banos || 0,
+      habitaciones: house.habitaciones || 0,
+      garajes: house.garajes || 0,
+      amueblado: house.amueblado || false,
+      ciudad: house.ciudad || '',
+      metrosCuadrados: house.metrosCuadrados || 0,
+      createdAt: house.createdAt || '',
+      updatedAt: new Date().toISOString()
+    });
+
+    this.imagePreview = house.imagen || house.img || null;
   }
 
-  // Método para eliminar una propiedad
-  deleteHouse(index: number) {
-    this.propertiesService.deleteHouse(index);
-    this.houses = this.propertiesService.getHouses();
-  }
-
-  // Método para cancelar la edición
-  cancelEdit() {
+  cancelEdit(): void {
     this.houseForm.reset();
+    this.imagePreview = null;
     this.editIndex = -1;
+    this.editId = '';
   }
 
-  // Add these properties to your component class
-  searchTerm: string = '';
-  imagePreview: string | ArrayBuffer | null = null;
+  deleteHouse(index: number): void {
+    const house = this.houses[index];
+    const id = house._id || house.id;
+    if (!id) {
+      console.error('No se pudo obtener el ID de la propiedad para eliminar');
+      return;
+    }
 
-  // Add this method to your component class
-  // Update your onFileSelected method
+    this.propertiesService.deleteHouse(id).subscribe(
+      () => {
+        this.houses.splice(index, 1);
+      },
+      (error) => {
+        console.error('Error al eliminar la propiedad:', error);
+      }
+    );
+  }
+
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      // Create a FileReader to read the image as a data URL
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        // Set the preview image
         this.imagePreview = e.target.result;
-
-        // Store the image data in the form
-        this.houseForm.patchValue({
-          img: e.target.result
-        });
-
-        // Mark the form control as touched to trigger validation
-        this.houseForm.get('img')?.markAsTouched();
+        this.houseForm.patchValue({ imagen: e.target.result });
+        this.houseForm.get('imagen')?.markAsTouched();
       };
       reader.readAsDataURL(file);
     }
   }
-
-
 }

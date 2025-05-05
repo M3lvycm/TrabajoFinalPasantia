@@ -1,9 +1,33 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class PropertiesService {
+  private httpGet = 'http://localhost:3000/property'
+  private httpPost = 'http://localhost:3000/property'
+
+  constructor(private http: HttpClient) {
+
+   }
+
+   getPropertys(): Observable<any> {
+    return this.http.get<any>(this.httpGet);
+  }
+  postPropertys(data: any){
+    return this.http.post<any>(this.httpPost, data);
+  }
+
+ updateProperty(id: string, propertyData: any): Observable<any> {
+    return this.http.put(`${this.httpGet}/${id}`, propertyData);
+  }
+
+
+
+
   private houses = [
     { title: 'Casa en España', text: 'Hermosa villa en la costa mediterránea, Barcelona.', img: 'Hespaña.webp', nH: "4", mC:'150', nG: '2', city: 'Barcelona'  },
     { title: 'Casa en USA', text: 'Moderno apartamento en Kansas, Estados Unidos.', img: 'Husa.jpg', nH: "2", mC:'90', nG: '1', city: 'Kansas' },
@@ -89,7 +113,6 @@ export class PropertiesService {
 
 
 
-  constructor() { }
 
   // Método para obtener todas las propiedades
   getHouses() {
@@ -113,13 +136,10 @@ export class PropertiesService {
     this.houses.push(house);
   }
 
-  // Método para eliminar una propiedad
-  deleteHouse(index: number) {
-    if (index >= 0 && index < this.houses.length) {
-      this.houses.splice(index, 1);
-    }
+  deleteHouse(id: string): Observable<any> {
+    return this.http.delete(`http://localhost:3000/property/${id}`);
   }
-
+  
   // Método para actualizar una propiedad existente
   updateHouse(index: number, updatedHouse: any) {
     if (index >= 0 && index < this.houses.length) {

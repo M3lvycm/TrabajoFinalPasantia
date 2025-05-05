@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { HouseComponent } from "../house/house.component";
 import { Section4Component } from "../section-4/section-4.component";
@@ -14,7 +14,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   templateUrl: './properties.component.html',
   styleUrl: './properties.component.css'
 })
-export class PropertiesComponent {
+export class PropertiesComponent implements OnInit {
   houses: any[] = [];
   filteredHouses: any[] = [];
   cities: string[] = [];
@@ -28,33 +28,51 @@ export class PropertiesComponent {
   minArea: number | null = null;
 
   constructor(private propertiesService: PropertiesService) {
-    this.houses = this.propertiesService.getHouses();
     this.filteredHouses = [...this.houses];
+    this.cities = this.houses.map(house => house.ciudad);
+  }
 
-    // Extract unique cities for the filter dropdown
-    this.cities = [...new Set(this.houses.map(house => house.city))];
+  ngOnInit(): void {
+    this.fetchProperty();
   }
 
   filterProperties() {
     this.filteredHouses = this.houses.filter(house => {
       // Filter by city
-      if (this.selectedCity && house.city !== this.selectedCity) {
+      if (this.selectedCity && house.ciudad !== this.selectedCity) {
         return false;
       }
 
       // Filter by bedrooms
-      if (this.selectedBedrooms && parseInt(house.nH) < parseInt(this.selectedBedrooms)) {
+      if (this.selectedBedrooms && parseInt(house.habitaciones) < parseInt(this.selectedBedrooms)) {
         return false;
       }
 
       // Filter by minimum area
-      if (this.minArea && parseInt(house.mC) < this.minArea) {
+      if (this.minArea && parseInt(house.metrosCuadrados) < this.minArea) {
         return false;
       }
 
       return true;
     });
   }
+
+  fetchProperty(): void{
+    this.propertiesService.getPropertys().subscribe(
+      (data) => {
+        this.houses = data;
+        this.filteredHouses = [...this.houses];
+        this.cities = [...new Set(this.houses.map(house => house.ciudad))];
+        console.log(data)
+
+      },
+      (error) => {
+        console.error('Error fetching properties:', error);
+      }
+    );
+  }
+
+  
 
   resetFilters() {
     this.selectedCity = '';
