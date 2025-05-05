@@ -139,7 +139,7 @@ export class PropertiesService {
   deleteHouse(id: string): Observable<any> {
     return this.http.delete(`http://localhost:3000/property/${id}`);
   }
-  
+
   // Método para actualizar una propiedad existente
   updateHouse(index: number, updatedHouse: any) {
     if (index >= 0 && index < this.houses.length) {
