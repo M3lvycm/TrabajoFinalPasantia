@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  imports: [NavbarComponent, ReactiveFormsModule, CommonModule, FilterPipe, FormsModule, SidebarComponent]
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule,  FormsModule, SidebarComponent]
 })
 export class DashboardComponent implements OnInit {
   houses: any[] = [];
@@ -32,12 +32,12 @@ export class DashboardComponent implements OnInit {
       titulo: ['', Validators.required],
       descripcion: ['', Validators.required],
       imagen: ['', Validators.required],
-      banos: [0, [Validators.required, Validators.min(0)]],
+      banos: ['', [Validators.required, Validators.min(0)]],
       habitaciones: [0, [Validators.required, Validators.min(0)]],
-      garajes: [0, [Validators.required, Validators.min(0)]],
+      garajes: ['', [Validators.required, Validators.min(0)]],
       amueblado: [false, Validators.required],
       ciudad: ['', Validators.required],
-      metrosCuadrados: [0, [Validators.required, Validators.min(0)]],
+      metrosCuadrados: ['', [Validators.required, Validators.min(0)]],
       createdAt: [''],
       updatedAt: ['']
     });

@@ -16,12 +16,33 @@ export class PropertiesService {
 
    getPropertys(): Observable<any> {
     return this.http.get<any>(this.httpGet);
+    
   }
   postPropertys(data: any){
+    // Verificamos si la imagen ya tiene el prefijo data:
+    if (data.imagen && typeof data.imagen === 'string') {
+      // Si ya tiene el prefijo data:, la dejamos como está
+      if (data.imagen.startsWith('data:data:')) {
+        // Si tiene doble data:, removemos uno
+        data.imagen = data.imagen.replace('data:data:', 'data:');
+      } else if (!data.imagen.startsWith('data:')) {
+        // Si no tiene el prefijo data:, lo agregamos
+        data.imagen = 'data:image/jpeg;base64,' + data.imagen;
+      }
+    }
     return this.http.post<any>(this.httpPost, data);
   }
 
- updateProperty(id: string, propertyData: any): Observable<any> {
+  updateProperty(id: string, propertyData: any): Observable<any> {
+    if (propertyData.imagen && typeof propertyData.imagen === 'string') {
+      if (propertyData.imagen.startsWith('data:data:')) {
+        // Si tiene doble data:, removemos uno
+        propertyData.imagen = propertyData.imagen.replace('data:data:', 'data:');
+      } else if (!propertyData.imagen.startsWith('data:')) {
+        // Si no tiene el prefijo data:, lo agregamos
+        propertyData.imagen = 'data:image/jpeg;base64,' + propertyData.imagen;
+      }
+    }
     return this.http.put(`${this.httpGet}/${id}`, propertyData);
   }
 
